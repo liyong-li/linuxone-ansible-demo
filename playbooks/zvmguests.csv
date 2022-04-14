@@ -1,0 +1,2 @@
+zvm_uname,init_mem,max_mem,vcpu,profile,vsw_name,ip,mask,gw,hostname,vlanid,dasd_grp
+TCBTEST3,16,32,4,INSTALL,VSW10G-5,10.107.5.237,255.255.254.0,10.107.4.1,tcbtest3,0376,LNXPOOL

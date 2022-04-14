@@ -1,0 +1,13 @@
+USER {{ item.zvm_uname }} LBYONLY {{item.init_mem}}G {{item.max_mem}}G G                             
+   INCLUDE INSTALL                                             
+   COMMAND TERM MORE 0 0 
+   COMMAND TERM HOLD OFF                          
+   CPU 00 BASE
+{% for i in range(item.vcpu-1)%}
+   CPU {{'%02x' % (i+1)}} 
+{% endfor %}
+   LOGONBY IBMVM1                                        
+   MACHINE ESA 32
+   IPL CMS PARM AUTOCR
+   NICDEF 1000 TYPE QDIO DEVICES 3 LAN SYSTEM {{item.vsw_name}} 
+

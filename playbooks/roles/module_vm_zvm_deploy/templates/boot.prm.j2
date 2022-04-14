@@ -1,0 +1,7 @@
+{% set vm_obj = item %}
+ro ramdisk_size=40000                        
+ip={{vm_obj.ip}}::{{vm_obj.gw}}:{{vm_obj.mask}}:{{vm_obj.hostname}}:enccw0.0.0600:none                     
+rd.znet=qeth,0.0.0600,0.0.0601,0.0.0602,layer2=1,portno=0               
+inst.repo={{linux_inst_repo}}                
+inst.text noshell inst.sshd quiet  rd.dasd=0.0.0101 inst.cmdline 
+inst.ks={{linux_ks_path}}/{{ vm_obj.zvm_uname }}.KS

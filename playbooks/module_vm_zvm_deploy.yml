@@ -1,0 +1,12 @@
+---
+# Sample module-level playbook of the IBM Z HMC Collection
+- hosts:
+    - localhost 
+  vars_files:
+    - tcbvault.yml
+  roles:
+  - module_vm_zvm_deploy
+
+
+    
+

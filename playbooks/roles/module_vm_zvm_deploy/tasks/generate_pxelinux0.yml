@@ -1,0 +1,94 @@
+---
+
+- name: generate user direct
+  tags: linux-cfg
+  template:
+    src: user.direct.j2
+    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT"
+
+- name: generate user parm
+  tags: linux-cfg
+  template:
+    src: boot.prm.j2
+    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.PRM"
+
+- name: generate user kickstart file
+  tags: linux-cfg
+  template:
+    src: boot.ks.j2
+    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.KS"
+
+#- name: generate profile exec
+#  tags: linux-cfg
+#  template:
+#    src: lnxmaint.profile.exec.j2
+#    dest: "{{ zvmguests_output }}/PROFILE.EXEC"
+
+- name: generate ftp script
+  template:
+    src: ftp.to.zvm.sh.j2
+    dest: "{{ zvmguests_output }}/ftp.to.zvm.sh"
+    mode: a+x
+
+- name: generate ftp script
+  template:
+    src: ftp.to.linux.sh.j2
+    dest: "{{ zvmguests_output }}/ftp.to.linux.sh"
+    mode: a+x
+
+- name: run ftp.to.zvm script
+  command: "{{ zvmguests_output }}/ftp.to.zvm.sh LNXADMIN.192"
+  register: script_output
+ 
+- debug: var=script_output.stdout_lines
+
+- name: run ftp.to.linux script
+  command: "{{ zvmguests_output }}/ftp.to.linux.sh"
+  register: script_output
+ 
+- debug: var=script_output.stdout_lines
+
+- name: make output dir
+  delegate_to: "{{ zvmagent}}"
+  file:
+    path: "{{ zvmguests_output }}"
+    state: directory
+
+
+- name: "Transfer the script"
+  delegate_to: "{{ zvmagent}}"
+  copy: src="{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT" dest="{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT" mode=0755
+
+
+- name: create user directory entry for Linux 
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output }}/{{vm_name}}.DIRECT
+
+- name: Start up linux 
+  delegate_to: "{{ zvmagent}}"
+  shell: "/opt/zthin/bin/smcli Image_Activate -T {{item.zvm_uname|upper}}"
+
+
+- name: wait for new system  node accessibility
+  wait_for:
+    port: 22
+    host: "{{ item.ip }}"
+    search_regex: OpenSSH
+    delay: 1
+    timeout: 5000
+
+- name: replace user directory entry for Linux
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Definition_Update_DM -T {{ vm_name|quote }} -k "INCLUDE={{guest_profile}}"
+
+- name: replace user directory entry for Linux
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: "/opt/zthin/bin/smcli Image_IPL_Set_DM -T {{ vm_name|quote }} -s {{load_address}}"
+
+

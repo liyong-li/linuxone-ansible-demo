@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# The 3 variables below store server and login details
+HOST="{{ zvm_ftp }}"
+USER="{{ zvm_ftp_user }}"
+PASSWORD="{{ zvm_ftp_pwd }}"
+
+
+# $1 is the first argument to the script
+# We are using it as upload directory path
+# If it is '.', file is uploaded to current directory.
+DESTINATION=$1
+
+
+# Rest of the arguments are a list of files to be uploaded.
+# ${@:2} is an array of arguments without first one.
+ALL_FILES="*.PRM"
+EXEC_FILES="*.EXEC"
+
+
+# FTP login and upload is explained in paragraph below
+#lftp -inv $HOST <<EOF
+lftp -u $USER,$PASSWORD $HOST << EOF
+#user $USER $PASSWORD
+cd $DESTINATION
+lcd {{ zvmguests_output }}
+site fix 80 
+mput -a $ALL_FILES
+#mput -a $EXEC_FILES
+bye
+EOF
+
