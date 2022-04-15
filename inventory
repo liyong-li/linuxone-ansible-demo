@@ -1,2 +1,9 @@
 [zvmagent]
 icicfba4
+
+[dev_rhel8]
+bastion
+
+[new_rhel]
+rhel840001
+rhel790001
