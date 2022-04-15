@@ -1,9 +1,9 @@
 ---
 # Sample module-level playbook of the IBM Z HMC Collection
-    - name: Read CSV
-      read_csv:
-            path:  /tmp/zvmguests.csv
-      register: zvmguests_template
+    #- name: Read CSV
+    #  read_csv:
+    #        path:  /tmp/zvmguests.csv
+    #  register: zvmguests_template
     - debug:
         var: zvmguests_template
 
