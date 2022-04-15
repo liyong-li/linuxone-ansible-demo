@@ -5,16 +5,16 @@
     #        path:  /tmp/zvmguests.csv
     #  register: zvmguests_template
     - debug:
-        var: zvmguests_template
+        var: zvms_template
 
     #- name: make output dir
     #  file:
     #    path: "{{ zvmguests_output }}"
     #    state: directory
 #
-    - name: "Creating user direct files -- {{ item.zvm_uname }}"
-      include_tasks: generate_pxelinux0.yml
-      with_items: "{{ zvmguests_template.list }}"
+    - name: "Working on -- {{ item.zvmname }}"
+      include_tasks: zvm_operations.yml
+      with_items: "{{ zvms_template.list }}"
 
 
     
