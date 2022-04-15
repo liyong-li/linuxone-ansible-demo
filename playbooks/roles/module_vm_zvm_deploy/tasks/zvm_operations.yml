@@ -115,21 +115,21 @@
 #  copy: src="{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT" dest="{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT" mode=0755
 
 - name: create user directory entry for Linux 
-  delegate_to: "{{ zvmagent}}"
+  #delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel84 }}/{{vm_name}}.DIRECT
   when: item.profile == "INST84"
 
 - name: create user directory entry for Linux 
-  delegate_to: "{{ zvmagent}}"
+  #delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel79 }}/{{vm_name}}.DIRECT
   when: item.profile == "INST79"
 
 - name: Start up linux 
-  delegate_to: "{{ zvmagent}}"
+  #delegate_to: "{{ zvmagent}}"
   shell: "/opt/zthin/bin/smcli Image_Activate -T {{item.zvm_uname|upper}}"
 
 
@@ -142,13 +142,13 @@
     timeout: 5000
 
 - name: replace user directory entry for Linux
-  delegate_to: "{{ zvmagent}}"
+  #delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Definition_Update_DM -T {{ vm_name|quote }} -k "INCLUDE={{guest_profile}}"
 
 - name: replace user directory entry for Linux
-  delegate_to: "{{ zvmagent}}"
+  #delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: "/opt/zthin/bin/smcli Image_IPL_Set_DM -T {{ vm_name|quote }} -s {{load_address}}"
