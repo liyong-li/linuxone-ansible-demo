@@ -21,16 +21,20 @@
 - name: Reduce the Memory size
   tags: mem-cfg
   shell: "vmcp set stor RECONFigurable -{{item.mem_size}}"
+  register: cmd_output
   when: 
     - queryonly == false
     - item.mem_inc == false
+- debug: var=cmd_output.stdout
 
 - name: Increase the Memory size
   tags: mem-cfg
   shell: "vmcp set stor RECONFigurable +{{item.mem_size}}"
+  register: cmd_output
   when: 
     - queryonly == false
     - item.mem_inc == true
+- debug: var=cmd_output.stdout
 
 - name: Get the current zVM CPU info
   tags: zvm-cfg
