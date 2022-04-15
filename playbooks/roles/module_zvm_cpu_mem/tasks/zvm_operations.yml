@@ -21,7 +21,7 @@
 
 - name: Set the target memory size
   set_fact: 
-     zvm_stor_size: substraction {{ cmd_output.stdout |int - item.mem_size |int }}
+     zvm_stor_size: "{{ cmd_output.stdout |int - item.mem_size |int }}"
 
 - debug: var=zvm_stor_size
 
