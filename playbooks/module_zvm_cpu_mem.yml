@@ -1,0 +1,14 @@
+---
+# Sample module-level playbook of the IBM Z HMC Collection
+- hosts:
+    - zvmagent
+  vars_files:
+    - vault.yml
+  gather_facts: no
+  become: yes
+  roles:
+  - module_zvm_cpu_mem
+
+
+    
+

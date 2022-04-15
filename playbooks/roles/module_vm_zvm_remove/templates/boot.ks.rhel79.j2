@@ -1,0 +1,53 @@
+#version=DEVEL
+# System authorization information
+auth --enableshadow --passalgo=sha512
+# Use graphical install
+text
+# Run the Setup Agent on first boot
+firstboot --disable
+eula --agreed
+reboot
+ignoredisk --only-use=dasda
+# Keyboard layouts
+keyboard --vckeymap=us --xlayouts='us'
+# System language
+lang en_US.UTF-8
+
+# Network information
+network  --bootproto=static --device=enccw0.0.0600 --gateway={{item.gw}} --ip={{item.ip}} --netmask={{item.mask}} --ipv6=auto --activate
+network  --hostname={{item.hostname}}
+
+repo --name="Server-HighAvailability" --baseurl={{linux_inst_repo_rhel79}}/addons/HighAvailability
+repo --name="Server-ResilientStorage" --baseurl={{linux_inst_repo_rhel79}}/addons/ResilientStorage
+# Use network installation
+url --url="{{linux_inst_repo_rhel79}}"
+# Root password
+rootpw --iscrypted $6$MKtCGGd4zkxyU8zB$Ww5HhicPvP3ooEPxTKt52Sl9MgC4YzLVHW0XG4/gV31wgk0DRJwcHTYExfQODDNQjwrLVGHQXhlgU2LPr3uyn.
+# System services
+services --enabled="chronyd"
+# System timezone
+timezone Asia/Ho_Chi_Minh
+# System bootloader configuration
+bootloader --append=" crashkernel=auto" --location=mbr --boot-drive=dasda
+autopart --type=lvm
+# Partition clearing information
+clearpart --all --initlabel --drives=dasda
+
+%packages
+@^minimal
+@core
+chrony
+kexec-tools
+
+%end
+
+%addon com_redhat_kdump --enable --reserve-mb='auto'
+
+%end
+
+%anaconda
+pwpolicy root --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+pwpolicy user --minlen=6 --minquality=1 --notstrict --nochanges --emptyok
+pwpolicy luks --minlen=6 --minquality=1 --notstrict --nochanges --notempty
+%end
+

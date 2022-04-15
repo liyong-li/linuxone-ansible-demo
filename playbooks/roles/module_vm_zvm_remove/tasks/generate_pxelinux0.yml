@@ -1,0 +1,19 @@
+---
+- name: backup user directory entry for Linux 
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Query_DM -T {{ vm_name|quote }} > /tmp/{{vm_name}}.DIRECT
+
+- name: shutdown the VM 
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Deactivate -T {{ vm_name|quote }} -f IMMED  
+
+- name: Delete user directory entry for Linux 
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Delete_DM -T {{ vm_name|quote }} -e 1
+

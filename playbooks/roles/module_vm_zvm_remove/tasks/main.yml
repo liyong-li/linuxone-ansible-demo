@@ -1,0 +1,21 @@
+---
+# Sample module-level playbook of the IBM Z HMC Collection
+    #- name: Read CSV
+    #  read_csv:
+    #        path:  /tmp/zvmguests.csv
+    #  register: zvmguests_template
+    - debug:
+        var: zvmguests_template
+
+    #- name: make output dir
+    #  file:
+    #    path: "{{ zvmguests_output }}"
+    #    state: directory
+#
+    - name: "Deleting user direct files -- {{ item.zvm_uname }}"
+      include_tasks: generate_pxelinux0.yml
+      with_items: "{{ zvmguests_template.list }}"
+
+
+    
+
