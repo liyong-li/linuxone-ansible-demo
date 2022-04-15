@@ -14,6 +14,11 @@ nvcpu=`vmcp q processor | wc -l`
 corelist=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq`
 let ncpu=$nvcpu/2
 echo $ncpu
+if [[ $corelist == "" ]]
+then
+   echo "no free CPU to online, please add more cpu on LPAR level"
+   exit 999
+fi
 for core in $corelist
 do
   if [[ $1 == "doit" ]] 
