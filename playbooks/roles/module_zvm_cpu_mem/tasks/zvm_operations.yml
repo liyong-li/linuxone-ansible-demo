@@ -25,10 +25,37 @@
 
 - debug: var=zvm_stor_size
 
-- name: Change the CPU number
+- name: generate cpu offline script
   tags: cpu-cfg
-  shell: echo test
+  #become: yes
+  #become_user: root
+  template:
+    src: vary_off_zvm.sh.j2
+    dest: "/tmp/vary_off_zvm.sh"
+
+- name: generate cpu online script
+  tags: cpu-cfg
+  #become: yes
+  #become_user: root
+  template:
+    src: vary_on_zvm.sh.j2
+    dest: "/tmp/vary_on_zvm.sh"
+
+- name: Offline the CPU 
+  tags: cpu-cfg
+  shell: /tmp/vary_off_zvm.sh {{item.cpu_num}} doit
   register: cmd_output
+  when: 
+    - queryonly == false
+    - item.cpu_inc == false
+
+- name: On the CPU 
+  tags: cpu-cfg
+  shell: /tmp/vary_on_zvm.sh {{item.cpu_num}} doit
+  register: cmd_output
+  when: 
+    - queryonly == false
+    - item.cpu_inc == true
 
 - name: Reduce the Memory size
   tags: mem-cfg
