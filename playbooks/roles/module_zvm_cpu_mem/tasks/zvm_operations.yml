@@ -63,6 +63,16 @@
   when: 
     - queryonly == false
     - item.mem_inc == false
+    - zvm_stor_size > 0
+
+- name: Reduce the Memory size
+  tags: mem-cfg
+  shell: "vmcp set stor RECONFigurable {{zvm_stor_size}}"
+  register: cmd_output
+  when: 
+    - queryonly == false
+    - item.mem_inc == false
+    - zvm_stor_size == 0
 
 - name: Increase the Memory size
   tags: mem-cfg
