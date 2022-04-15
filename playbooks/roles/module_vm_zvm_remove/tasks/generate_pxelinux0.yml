@@ -4,16 +4,19 @@
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Query_DM -T {{ vm_name|quote }} > /tmp/{{vm_name}}.DIRECT
+  ignore_errors: True 
 
 - name: shutdown the VM 
   delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Deactivate -T {{ vm_name|quote }} -f IMMED  
+  ignore_errors: True 
 
 - name: Delete user directory entry for Linux 
   delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Delete_DM -T {{ vm_name|quote }} -e 1
+  ignore_errors: True 
 
