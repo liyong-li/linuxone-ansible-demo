@@ -15,7 +15,7 @@
 
 - name: Get the current zVM Mem size
   tags: zvm-cfg
-  shell: vmcp query stor | grep 'Reconfigurable =' | sed -e 's/.*Reconfigurable =\(.*\)Maximum.*/\1/'
+  shell: vmcp query stor | grep 'Reconfigurable =' | sed -e 's/.*Reconfigurable =\(.*\)Maximum.*/\1/' | tr -d ' \t\n\r' | cut -d 'G' -f1
   register: zvm_stor_size
 - debug: var=zvm_stor_size
 
