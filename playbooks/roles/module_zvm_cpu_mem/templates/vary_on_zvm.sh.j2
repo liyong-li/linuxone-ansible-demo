@@ -11,10 +11,10 @@ then
    exit 0
 fi
 nvcpu=`vmcp q processor | wc -l`
-corelist=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq`
+corelist=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq | sort -r | head -$1`
 candidate_ncpu=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq | wc -l`
 
-if [ candidate_ncpu < $1 ]
+if [[ $candidate_ncpu < $1 ]]
 then 
    echo "not enough standby vCPU"
    exit 999
