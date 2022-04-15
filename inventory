@@ -5,7 +5,7 @@ icicfba4
 bastion
 
 [new_rhel]
-rhel840001
+rhel84001
 
 [iso_server]
 infrasys
