@@ -2,16 +2,16 @@
 - name: Get the current zVM CPU info
   tags: zvm-cfg
   shell: vmcp query processor
-  register: cmd_output.stdout
+  register: cmd_output
 
-- debug: var=cmd_output
+- debug: var=cmd_output.stdout
 
 - name: Get the current zVM Mem info
   tags: zvm-cfg
   shell: vmcp query stor
-  register: cmd_output.stdout
+  register: cmd_output
 
-- debug: var=cmd_output
+- debug: var=cmd_output.stdout
 
 #- name: Changing CPU number
 #  tags: zvm-cfg
