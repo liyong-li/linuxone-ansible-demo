@@ -13,7 +13,7 @@
     #    state: directory
 #
     - name: "Deleting user direct files -- {{ item.zvm_uname }}"
-      include_tasks: generate_pxelinux0.yml
+      include_tasks: zvm_operations.yml
       with_items: "{{ zvmguests_template.list }}"
 
 
