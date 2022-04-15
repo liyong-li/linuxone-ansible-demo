@@ -48,6 +48,7 @@
   when: 
     - queryonly == false
     - item.cpu_inc == false
+- debug: var=cmd_output
 
 - name: On the CPU 
   tags: cpu-cfg
@@ -56,6 +57,7 @@
   when: 
     - queryonly == false
     - item.cpu_inc == true
+- debug: var=cmd_output
 
 - name: Reduce the Memory size
   tags: mem-cfg

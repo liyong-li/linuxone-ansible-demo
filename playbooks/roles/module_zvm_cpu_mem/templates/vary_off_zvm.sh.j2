@@ -1,0 +1,27 @@
+#/bin/bash
+
+arg1=$1
+if [ -z $arg1 ]; then 
+  let arg1=0
+fi
+if [[ $1 == "?" ]]
+then
+   echo "$0 number doit to offline #number IFL \n"
+   echo "$0 number to test only (without doit in the command line)"
+   exit 0
+fi
+nvcpu=`vmcp q processor | wc -l`
+corelist=`vmcp q processor | sort -k 6 | awk '{ print $6 }' | uniq | tail -$arg1`
+let ncpu=$nvcpu/2
+echo $ncpu
+for core in $corelist
+do
+  if [[ $2 == "doit" ]] 
+  then
+    /usr/sbin/vmcp vary offline core  $core
+  else
+    echo "/usr/sbin/vmcp vary offline core "  $core
+  fi
+done
+
+exit
