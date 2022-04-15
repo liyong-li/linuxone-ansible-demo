@@ -32,7 +32,7 @@
 
 - name: Reduce the Memory size
   tags: mem-cfg
-  shell: "vmcp set stor RECONFigurable {{zvm_stor_size}}"G
+  shell: "vmcp set stor RECONFigurable {{zvm_stor_size}}G"
   register: cmd_output
   when: 
     - queryonly == false
@@ -41,7 +41,7 @@
 
 - name: Increase the Memory size
   tags: mem-cfg
-  shell: "vmcp set stor RECONFigurable +{{item.mem_size}}"G
+  shell: "vmcp set stor RECONFigurable +{{item.mem_size}}G"
   register: cmd_output
   when: 
     - queryonly == false
