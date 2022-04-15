@@ -2,14 +2,14 @@
 - name: Get the current zVM CPU info
   tags: zvm-cfg
   shell: vmcp query processor
-  register: cmd_output
+  register: cmd_output.stdout
 
 - debug: var=cmd_output
 
 - name: Get the current zVM Mem info
   tags: zvm-cfg
   shell: vmcp query stor
-  register: cmd_output
+  register: cmd_output.stdout
 
 - debug: var=cmd_output
 
