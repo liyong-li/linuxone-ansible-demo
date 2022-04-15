@@ -22,14 +22,14 @@
   tags: mem-cfg
   shell: "vmcp set stor RECONFigurable -{{item.mem_size}}"
   when: 
-    - item.queryonly == false
+    - queryonly == false
     - item.mem_inc == false
 
 - name: Increase the Memory size
   tags: mem-cfg
   shell: "vmcp set stor RECONFigurable +{{item.mem_size}}"
   when: 
-    - item.queryonly == false
+    - queryonly == false
     - item.mem_inc == true
 
 
