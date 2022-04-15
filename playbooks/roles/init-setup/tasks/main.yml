@@ -35,12 +35,12 @@
     state=present
     createhome=yes
 
-- name: Set up authorized keys for the deployer user - ansible
-  authorized_key: user={{ansible_client_id}} key="{{item}}"
-  with_file:
-    - ~/.ssh/id_rsa.pub 
+#- name: Set up authorized keys for the deployer user - ansible
+#  authorized_key: user={{ansible_client_id}} key="{{item}}"
+#  with_file:
+#    - ~/.ssh/id_rsa.pub 
 
-- name: Add VM host key to known hosts
-  delegate_to: localhost
-  shell: "ssh-keyscan -H {{vm_ip}}  >> ~/.ssh/known_hosts"
+#- name: Add VM host key to known hosts
+#  delegate_to: localhost
+#  shell: "ssh-keyscan -H {{vm_ip}}  >> ~/.ssh/known_hosts"
 
