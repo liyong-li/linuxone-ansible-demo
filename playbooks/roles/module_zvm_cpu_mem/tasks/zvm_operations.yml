@@ -13,6 +13,12 @@
 
 - debug: var=cmd_output.stdout
 
+- name: Get the current zVM Mem size
+  tags: zvm-cfg
+  shell: vmcp query stor | grep 'Reconfigurable =' | sed -e 's/.*Reconfigurable =\(.*\)Maximum.*/\1/'
+  register: zvm_stor_size
+- debug: var=zvm_stor_size
+
 - name: Change the CPU number
   tags: cpu-cfg
   shell: echo test
