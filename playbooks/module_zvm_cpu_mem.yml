@@ -1,7 +1,7 @@
 ---
 # Sample module-level playbook of the IBM Z HMC Collection
 - hosts:
-    - zvmagent
+    - "{{zvmagent}}"
   vars_files:
     - vault.yml
   gather_facts: no
