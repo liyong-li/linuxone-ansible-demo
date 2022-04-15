@@ -4,26 +4,19 @@
   shell: vmcp query processor
   register: cmd_output
 
-- debug: var=cmd_output.stdout
-
 - name: Get the current zVM Mem info
   tags: zvm-cfg
   shell: vmcp query stor
   register: cmd_output
 
-- debug: var=cmd_output.stdout
-
 - name: Get the current zVM Mem size
   tags: zvm-cfg
   shell: vmcp query stor | grep 'Reconfigurable =' | sed -e 's/.*Reconfigurable =\(.*\)Maximum.*/\1/' | tr -d ' \t\n\r' | cut -d 'G' -f1
   register: cmd_output
-- debug: var=cmd_output
 
 - name: Set the target memory size
   set_fact: 
      zvm_stor_size: "{{ cmd_output.stdout |int - item.mem_size |int }}"
-
-- debug: var=zvm_stor_size
 
 - name: generate cpu offline script
   tags: cpu-cfg
@@ -33,6 +26,8 @@
     src: vary_off_zvm.sh.j2
     dest: "/tmp/vary_off_zvm.sh"
     mode: a+x
+  when: 
+    - queryonly == false
 
 - name: generate cpu online script
   tags: cpu-cfg
@@ -42,6 +37,8 @@
     src: vary_on_zvm.sh.j2
     dest: "/tmp/vary_on_zvm.sh"
     mode: a+x
+  when: 
+    - queryonly == false
 
 - name: Offline the CPU 
   tags: cpu-cfg
@@ -50,16 +47,14 @@
   when: 
     - queryonly == false
     - item.cpu_inc == false
-- debug: var=cmd_output
 
-- name: On the CPU 
+- name: Online the CPU 
   tags: cpu-cfg
   shell: /tmp/vary_on_zvm.sh {{item.cpu_num}} doit
   register: cmd_output
   when: 
     - queryonly == false
     - item.cpu_inc == true
-- debug: var=cmd_output
 
 - name: Reduce the Memory size
   tags: mem-cfg
@@ -68,7 +63,6 @@
   when: 
     - queryonly == false
     - item.mem_inc == false
-- debug: var=cmd_output.stdout
 
 - name: Increase the Memory size
   tags: mem-cfg
@@ -77,16 +71,11 @@
   when: 
     - queryonly == false
     - item.mem_inc == true
-- debug: var=cmd_output.stdout
 
 - name: Get the current zVM CPU info
   tags: zvm-cfg
   shell: vmcp query processor
   register: cmd_output
-  when: 
-    - queryonly == false
-
-- debug: var=cmd_output.stdout
   when: 
     - queryonly == false
 
@@ -97,9 +86,6 @@
   when: 
     - queryonly == false
 
-- debug: var=cmd_output.stdout
-  when: 
-    - queryonly == false
 
 #- name: Changing CPU number
 #  tags: zvm-cfg
