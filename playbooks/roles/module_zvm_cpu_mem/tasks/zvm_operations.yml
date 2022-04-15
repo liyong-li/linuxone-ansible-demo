@@ -16,7 +16,13 @@
 - name: Get the current zVM Mem size
   tags: zvm-cfg
   shell: vmcp query stor | grep 'Reconfigurable =' | sed -e 's/.*Reconfigurable =\(.*\)Maximum.*/\1/' | tr -d ' \t\n\r' | cut -d 'G' -f1
-  register: zvm_stor_size
+  register: cmd_output
+- debug: var=cmd_output
+
+- name: Set the target memory size
+  set_fact: 
+     zvm_stor_size: substraction {{ cmd_output.stdout - item.mem_size }}
+
 - debug: var=zvm_stor_size
 
 - name: Change the CPU number
@@ -26,7 +32,7 @@
 
 - name: Reduce the Memory size
   tags: mem-cfg
-  shell: "vmcp set stor RECONFigurable -{{item.mem_size}}"
+  shell: "vmcp set stor RECONFigurable {{zvm_stor_size}}"G
   register: cmd_output
   when: 
     - queryonly == false
@@ -35,7 +41,7 @@
 
 - name: Increase the Memory size
   tags: mem-cfg
-  shell: "vmcp set stor RECONFigurable +{{item.mem_size}}"
+  shell: "vmcp set stor RECONFigurable +{{item.mem_size}}"G
   register: cmd_output
   when: 
     - queryonly == false
