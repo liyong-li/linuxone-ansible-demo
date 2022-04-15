@@ -3,12 +3,12 @@
   file:
     path: "{{ zvmguests_output_rhel84 }}"
     state: directory
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 - name: make output dir
   file:
     path: "{{ zvmguests_output_rhel79 }}"
     state: directory
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: make output dir
   delegate_to: "{{iso_server}}"
@@ -27,7 +27,7 @@
   template:
     src: boot.ks.rhel84.j2
     dest: "{{ ftp_install_path}}/ks/{{item.zvm_uname|upper}}.KS"
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: generate user kickstart file
   delegate_to: "{{iso_server}}"
@@ -37,7 +37,7 @@
   template:
     src: boot.ks.rhel79.j2
     dest: "{{ ftp_install_path}}/ks/{{item.zvm_uname|upper}}.KS"
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: generate user direct
   tags: linux-cfg
@@ -46,7 +46,7 @@
   template:
     src: user.direct.j2
     dest: "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.DIRECT"
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: generate user direct
   tags: linux-cfg
@@ -55,59 +55,59 @@
   template:
     src: user.direct.j2
     dest: "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT"
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: generate profile exec
   tags: linux-cfg
   template:
     src: lnxmaint.profile.exec.rhel84.j2
     dest: "{{ zvmguests_output_rhel84 }}/PROFILE.EXEC"
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: generate profile exec
   tags: linux-cfg
   template:
     src: lnxmaint.profile.exec.rhel79.j2
     dest: "{{ zvmguests_output_rhel79 }}/PROFILE.EXEC"
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: generate user parm
   tags: linux-cfg
   template:
     src: boot.prm.rhel84.j2
     dest: "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM"
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: generate user parm
   tags: linux-cfg
   template:
     src: boot.prm.rhel79.j2
     dest: "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM"
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: copy PRM to zVM minidisk
   tags: linux-cfg
   shell: cp "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel84/
   register: cmd_output
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 - name: copy PRM to zVM minidisk
   tags: linux-cfg
   shell: cp "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel79/
   register: cmd_output
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 - debug: var=cmd_output
 
 - name: copy PROFILE EXEC to zVM minidisk
   tags: linux-cfg
   shell: cp "{{ zvmguests_output_rhel84 }}/PROFILE.EXEC" /mnt/rhel84/
   register: cmd_output
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: copy PROFILE EXEC to zVM minidisk
   tags: linux-cfg
   shell: cp "{{ zvmguests_output_rhel79 }}/PROFILE.EXEC" /mnt/rhel79/
   register: cmd_output
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 - debug: var=cmd_output
 
 #- name: "Transfer the script"
@@ -119,14 +119,14 @@
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel84 }}/{{vm_name}}.DIRECT
-  when: item.profile == "INST84"
+  when: item.profile == "RHEL84"
 
 - name: create user directory entry for Linux 
   #delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
   shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel79 }}/{{vm_name}}.DIRECT
-  when: item.profile == "INST79"
+  when: item.profile == "RHEL79"
 
 - name: Start up linux 
   #delegate_to: "{{ zvmagent}}"
