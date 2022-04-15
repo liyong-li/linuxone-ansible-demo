@@ -6,27 +6,30 @@ if [ -z $arg1 ]; then
 fi
 if [[ $1 == "?" ]]
 then
-   echo "$0 doit to execute the change \n"
-   echo "$0 to test only (without doit in the command line)"
+   echo "$0 #cpu doit to execute the change \n"
+   echo "$0 #cpu to test only (without doit in the command line)"
    exit 0
 fi
 nvcpu=`vmcp q processor | wc -l`
 corelist=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq`
-let ncpu=$nvcpu/2
-echo $ncpu
-if [[ $corelist == "" ]]
-then
-   echo "no free CPU to online, please add more cpu on LPAR level"
+candidate_ncpu=`vmcp q processor | grep STANDBY| awk '{ print $6 }' | uniq | wc -l`
+
+if [ candidate_ncpu < $1 ]
+then 
+   echo "not enough standby vCPU"
    exit 999
+else
+	 let ncpu=$nvcpu/2
+	 echo $ncpu
+	 for core in $corelist
+	 do
+  	 if [[ $2 == "doit" ]] 
+  	 then
+    	 /usr/sbin/vmcp vary online core  $core
+  	 else
+    	 echo "/usr/sbin/vmcp vary online core "  $core
+  	 fi
+	 done
 fi
-for core in $corelist
-do
-  if [[ $1 == "doit" ]] 
-  then
-    /usr/sbin/vmcp vary online core  $core
-  else
-    echo "/usr/sbin/vmcp vary online core "  $core
-  fi
-done
 
 exit
