@@ -6,7 +6,6 @@ bastion
 
 [new_rhel]
 rhel840001
-rhel790001
 
 [iso_server]
 infrasys
