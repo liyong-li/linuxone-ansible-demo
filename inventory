@@ -8,18 +8,18 @@ icicfba4
 icicfba5
 
 [demo_rhel]
-rhel84001
-rhel84002
-rhel79001
+RHEL8401
+RHEL8402
+RHEL7901
 
-[rhel84001]
-rhel84001
+[RHEL8401]
+RHEL8401
 
-[rhel84002]
-rhel84002
+[RHEL8402]
+RHEL8402
 
-[rhel79001]
-rhel79001
+[RHEL7901]
+RHEL7901
 
 [iso_server]
 infrasys
