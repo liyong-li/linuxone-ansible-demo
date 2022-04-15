@@ -1,6 +1,6 @@
 {% set standby = item.max_mem | int - item.init_mem | int %}
 USER {{ item.zvm_uname }} LBYONLY {{item.init_mem}}G {{item.max_mem}}G G
-   INCLUDE IBMDFLT 
+   INCLUDE INSTALL
    COMMAND DEF STOR {{item.init_mem}}G STANDBY {{standby}}G
    COMMAND TERM MORE 0 0
    COMMAND TERM HOLD OFF
@@ -10,7 +10,7 @@ USER {{ item.zvm_uname }} LBYONLY {{item.init_mem}}G {{item.max_mem}}G G
 {% endfor %}
    LOGONBY IBMVM1
    MACHINE ESA 32
-   IPL 101
+   IPL CMS PARM AUTOCR
    NICDEF 0600 TYPE QDIO DEVICES 3 LAN SYSTEM {{item.vsw_name}}
    NICDEF 0600 VLAN {{item.vlanid}} 
-   MDISK 101 9336 AUTOG 20971520 LNXPOOL  MR 
+   MDISK 101 9336 AUTOG 20971520 {{item.dasd_grp}}  MR 

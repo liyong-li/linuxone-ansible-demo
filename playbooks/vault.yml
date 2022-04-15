@@ -1,13 +1,23 @@
 ---
 # vault.yml file for the sample playbooks of the IBM Z HMC Collection
+zvm_ftp: 172.83.4.209
+zvm_ftp_user: "LNXADMIN"
+zvm_ftp_pwd: "dfltpass" 
+zvm_ftp_disk: "192"
+zvmagent: 172.83.4.191
+guest_profile: "IBMDFLT"
+load_address: 101
+ftp_install_path: "/home/demoftp/iso/install"
+iso_server: 172.83.4.227
+ftp_ip: 172.83.4.227
+linux_ftp_path: "//mnt/rhel79_s390x"
+linux_ftp_path: "//home/vhht08"
+ftp_username: "demoftp"
+ftp_password: "demoftp"
+linux_inst_repo_rhel79: ftp://demoftp:demoftp@172.83.4.227/iso/rhel79
+linux_inst_repo: ftp://demoftp:demoftp@172.83.4.227/iso/rhel84
+linux_ks_path: ftp://demoftp:demoftp@172.83.4.227/iso/install/ks
 
-# hmc_auth parameter for the zhmc tasks, for the HMCs in the inventory:
-hmc_auth:
-  tcbhmc:  # must match the key name in the inventory file
-    userid: sysprog
-    password: xxxxx
-    verify: false
-
-# The CPC the sample playbooks work with:
-#cpc_name: P0031F68 
-cpc_name: P00FBBF7
+vcpu_num: 1
+zvmguests_output_rhel79:  /tmp/zvmguests_rhel79
+zvmguests_output_rhel84:  /tmp/zvmguests_rhel84

@@ -1,70 +1,132 @@
 ---
+- name: make output dir
+  file:
+    path: "{{ zvmguests_output_rhel84 }}"
+    state: directory
+  when: item.profile == "INST84"
+- name: make output dir
+  file:
+    path: "{{ zvmguests_output_rhel79 }}"
+    state: directory
+  when: item.profile == "INST79"
+
+- name: make output dir
+  delegate_to: "{{iso_server}}"
+  become: yes
+  become_user: root
+  file:
+    path: "{{ ftp_install_path }}"
+    state: directory
+- debug: var=item.profile
+
+- name: generate user kickstart file
+  delegate_to: "{{iso_server}}"
+  become: yes
+  become_user: root
+  tags: linux-cfg
+  template:
+    src: boot.ks.rhel84.j2
+    dest: "{{ ftp_install_path}}/ks/{{item.zvm_uname|upper}}.KS"
+  when: item.profile == "INST84"
+
+- name: generate user kickstart file
+  delegate_to: "{{iso_server}}"
+  become: yes
+  become_user: root
+  tags: linux-cfg
+  template:
+    src: boot.ks.rhel79.j2
+    dest: "{{ ftp_install_path}}/ks/{{item.zvm_uname|upper}}.KS"
+  when: item.profile == "INST79"
 
 - name: generate user direct
   tags: linux-cfg
+  become: yes
+  become_user: root
   template:
     src: user.direct.j2
-    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT"
+    dest: "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.DIRECT"
+  when: item.profile == "INST84"
+
+- name: generate user direct
+  tags: linux-cfg
+  become: yes
+  become_user: root
+  template:
+    src: user.direct.j2
+    dest: "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT"
+  when: item.profile == "INST79"
+
+- name: generate profile exec
+  tags: linux-cfg
+  template:
+    src: lnxmaint.profile.exec.rhel84.j2
+    dest: "{{ zvmguests_output_rhel84 }}/PROFILE.EXEC"
+  when: item.profile == "INST84"
+
+- name: generate profile exec
+  tags: linux-cfg
+  template:
+    src: lnxmaint.profile.exec.rhel79.j2
+    dest: "{{ zvmguests_output_rhel79 }}/PROFILE.EXEC"
+  when: item.profile == "INST79"
 
 - name: generate user parm
   tags: linux-cfg
   template:
-    src: boot.prm.j2
-    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.PRM"
+    src: boot.prm.rhel84.j2
+    dest: "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM"
+  when: item.profile == "INST84"
 
-- name: generate user kickstart file
+- name: generate user parm
   tags: linux-cfg
   template:
-    src: boot.ks.j2
-    dest: "{{ zvmguests_output }}/{{item.zvm_uname|upper}}.KS"
+    src: boot.prm.rhel79.j2
+    dest: "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM"
+  when: item.profile == "INST79"
 
-#- name: generate profile exec
-#  tags: linux-cfg
-#  template:
-#    src: lnxmaint.profile.exec.j2
-#    dest: "{{ zvmguests_output }}/PROFILE.EXEC"
+- name: copy PRM to zVM minidisk
+  tags: linux-cfg
+  shell: cp "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel84/
+  register: cmd_output
+  when: item.profile == "INST84"
+- name: copy PRM to zVM minidisk
+  tags: linux-cfg
+  shell: cp "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel79/
+  register: cmd_output
+  when: item.profile == "INST79"
+- debug: var=cmd_output
 
-- name: generate ftp script
-  template:
-    src: ftp.to.zvm.sh.j2
-    dest: "{{ zvmguests_output }}/ftp.to.zvm.sh"
-    mode: a+x
+- name: copy PROFILE EXEC to zVM minidisk
+  tags: linux-cfg
+  shell: cp "{{ zvmguests_output_rhel84 }}/PROFILE.EXEC" /mnt/rhel84/
+  register: cmd_output
+  when: item.profile == "INST84"
 
-- name: generate ftp script
-  template:
-    src: ftp.to.linux.sh.j2
-    dest: "{{ zvmguests_output }}/ftp.to.linux.sh"
-    mode: a+x
+- name: copy PROFILE EXEC to zVM minidisk
+  tags: linux-cfg
+  shell: cp "{{ zvmguests_output_rhel79 }}/PROFILE.EXEC" /mnt/rhel79/
+  register: cmd_output
+  when: item.profile == "INST79"
+- debug: var=cmd_output
 
-- name: run ftp.to.zvm script
-  command: "{{ zvmguests_output }}/ftp.to.zvm.sh LNXADMIN.192"
-  register: script_output
- 
-- debug: var=script_output.stdout_lines
-
-- name: run ftp.to.linux script
-  command: "{{ zvmguests_output }}/ftp.to.linux.sh"
-  register: script_output
- 
-- debug: var=script_output.stdout_lines
-
-- name: make output dir
-  delegate_to: "{{ zvmagent}}"
-  file:
-    path: "{{ zvmguests_output }}"
-    state: directory
-
-
-- name: "Transfer the script"
-  delegate_to: "{{ zvmagent}}"
-  copy: src="{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT" dest="{{ zvmguests_output }}/{{item.zvm_uname|upper}}.DIRECT" mode=0755
-
+#- name: "Transfer the script"
+#  delegate_to: "{{ zvmagent}}"
+#  copy: src="{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT" dest="{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.DIRECT" mode=0755
 
 - name: create user directory entry for Linux 
   delegate_to: "{{ zvmagent}}"
   vars:
     vm_name: "{{item.zvm_uname|upper}}"
-  shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output }}/{{vm_name}}.DIRECT
+  shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel84 }}/{{vm_name}}.DIRECT
+  when: item.profile == "INST84"
+
+- name: create user directory entry for Linux 
+  delegate_to: "{{ zvmagent}}"
+  vars:
+    vm_name: "{{item.zvm_uname|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Create_DM -T {{ vm_name|quote }} -f {{ zvmguests_output_rhel79 }}/{{vm_name}}.DIRECT
+  when: item.profile == "INST79"
 
 - name: Start up linux 
   delegate_to: "{{ zvmagent}}"

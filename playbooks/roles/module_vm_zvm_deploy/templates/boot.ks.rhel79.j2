@@ -4,7 +4,9 @@ auth --enableshadow --passalgo=sha512
 # Use graphical install
 text
 # Run the Setup Agent on first boot
-firstboot --enable
+firstboot --disable
+eula --agreed
+reboot
 ignoredisk --only-use=dasda
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
@@ -15,10 +17,10 @@ lang en_US.UTF-8
 network  --bootproto=static --device=enccw0.0.0600 --gateway={{item.gw}} --ip={{item.ip}} --netmask={{item.mask}} --ipv6=auto --activate
 network  --hostname={{item.hostname}}
 
-repo --name="Server-HighAvailability" --baseurl={{linux_inst_repo}}/addons/HighAvailability
-repo --name="Server-ResilientStorage" --baseurl={{linux_inst_repo}}/addons/ResilientStorage
+repo --name="Server-HighAvailability" --baseurl={{linux_inst_repo_rhel79}}/addons/HighAvailability
+repo --name="Server-ResilientStorage" --baseurl={{linux_inst_repo_rhel79}}/addons/ResilientStorage
 # Use network installation
-url --url="{{linux_inst_repo}}"
+url --url="{{linux_inst_repo_rhel79}}"
 # Root password
 rootpw --iscrypted $6$MKtCGGd4zkxyU8zB$Ww5HhicPvP3ooEPxTKt52Sl9MgC4YzLVHW0XG4/gV31wgk0DRJwcHTYExfQODDNQjwrLVGHQXhlgU2LPr3uyn.
 # System services
