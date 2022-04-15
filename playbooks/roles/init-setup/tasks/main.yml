@@ -1,6 +1,15 @@
 ---
 # tasks file for configure-yum
 
+- name: Copy exports file.
+  template:
+    src: local_rhel_repo.j2
+    dest: /etc/yum.repos.d/local_rhel.repo
+    owner: root
+    group: root
+    mode: 0644
+
+
 - name: set ip address
   set_fact: 
     vm_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
