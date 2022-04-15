@@ -1,0 +1,37 @@
+---
+# tasks file for configure-yum
+
+- name: set ip address
+  set_fact: 
+    vm_ip: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['address']}}"
+
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Add ansible user to wheel group
+  user:
+    name={{ansible_client_id}}
+    groups=wheel
+    append=yes
+    state=present
+    createhome=yes
+
+- name: Set up authorized keys for the deployer user - ansible
+  authorized_key: user={{ansible_client_id}} key="{{item}}"
+  with_file:
+    - ~/.ssh/id_rsa.pub 
+
+- name: Add VM host key to known hosts
+  delegate_to: localhost
+  shell: "ssh-keyscan -H {{vm_ip}}  >> ~/.ssh/known_hosts"
+

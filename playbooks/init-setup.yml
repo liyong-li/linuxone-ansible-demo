@@ -1,0 +1,5 @@
+---
+- name: init setup
+  hosts: "{{newlinux}}"
+  roles:
+  - init-setup
