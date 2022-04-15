@@ -1,11 +1,29 @@
-[zvmagent]
+[DEMOZVM3]
+icicfba3
+
+[DEMOZVM4]
 icicfba4
+
+[DEMOZVM5]
+icicfba5
+
+[demo_rhel]
+rhel84001
+rhel84002
+rhel79001
+
+[rhel84001]
+rhel84001
+
+[rhel84002]
+rhel84002
+
+[rhel79001]
+rhel79001
+
+[iso_server]
+infrasys
 
 [dev_rhel8]
 bastion
 
-[new_rhel]
-rhel84001
-
-[iso_server]
-infrasys
