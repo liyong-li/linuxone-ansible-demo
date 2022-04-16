@@ -2,14 +2,22 @@
     - debug:
         var: all_vols
 
+    - name: set initial var
+      set_fact: 
+        vol_name_list: "{{ [] }}"
+        wwid_list: "{{ [] }}"
+
     #- name: make output dir
     #  file:
     #    path: "{{ zvmguests_output }}"
     #    state: directory
 #
-    - name: "creating svc vol -- {{ item }}"
+    - name: "creating svc vol -- "
       include_tasks: svc_operations.yml
       with_items: "{{ all_vols }}"
 
+
+    - debug: var=vol_name_list
+    - debug: var=wwid_list
 
     

@@ -1,22 +1,31 @@
 ---
-#- name: Create a volume
-#  ibm.spectrum_virtualize.ibm_svc_manage_volume:
-#    clustername: "{{ clustername }}"
-#    domain: "{{domain}}"
-#    username: "{{ username }}"
-##    password: "{{ password }}"
-#    log_path: /tmp/playbook.debug
-#    name: "{{item.hostname}}_{{ item.volname_prefix }}_{{ (100000 | random | to_uuid | lower)[:8] }}"
-#    state: "present"
-#    pool: "{{item.pool_name}}"
-#    size: "{{item.vol_size}}"
-##    unit: "{{item.vol_unit}}"
-#    iogrp: "{{item.io_grps}}"
+- name: set volume name
+  set_fact:
+    vol_name: "{{item.hostname}}_{{ item.volname_prefix }}_{{ (100000 | random | to_uuid | lower)[:8] }}"
+
+- name: Create a volume
+  ibm.spectrum_virtualize.ibm_svc_manage_volume:
+    clustername: "{{ clustername }}"
+    domain: "{{domain}}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    log_path: /tmp/playbook.debug
+    name: "{{vol_name}}"
+    state: "present"
+    pool: "{{item.pool_name}}"
+    size: "{{item.vol_size}}"
+    unit: "{{item.vol_unit}}"
+    iogrp: "{{item.io_grps}}"
     #volumegroup: "test_volumegroup"
+
+- name: store vol name to the list
+  set_fact:
+    vol_name_list: "{{ vol_name_list | default([]) + ['vol_name'] }}"
+
 
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo lsvdisk -delim : RHEL8401osf4b823d6"
+    command: "svcinfo lsvdisk -delim : {{vol_name}}"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
@@ -32,6 +41,7 @@
      vol_wwid: "{{vol_wwid_tmp[0].vdisk_UID}}"
 
 - debug: var=vol_wwid
+
 
 - name: get the volume name
   set_fact:
@@ -62,20 +72,24 @@
 - name: scsi-rescan
   delegate_to: "{{item.hostname}}"
   shell: lszfcp | cut -d ' ' -f2
-  register: rescan_output
+  register: hosts_output
 
 - debug: var=rescan_output
 
+- name: store wwid to the list
+  set_fact:
+    wwid_list: "{{ wwid_list | default([]) + ['vol_wwid'] }}"
+
+
+- name: scsi rescan on fcp ports
+  shell: echo "- - -" > /sys/class/scsi_host/{{item_host}}/scan
+  with_items: "hosts_output.stdout_lines"
+  loop_control: 
+    loop_var: item_host
+
 - name: list volume in vm
   delegate_to: "{{item.hostname}}"
-  shell: multipath -ll | grep {{vol_wwid}}
-  register: rescan_output
-#- name: Run svcinfo CLI command using SSH client with password
-#  ibm.spectrum_virtualize.ibm_svctask_command:
-#    command: "svctask rmhost {{item}}"
-#    clustername: "{{clustername}}"
-#    username: "{{username}}"
-#    password: "{{password}}"
-#    log_path: /tmp/playbook.debug
-#  register: svctask_cmd_output
+  shell: multipath -ll | grep -i {{vol_wwid}}
+  register: multipath_output
+
 
