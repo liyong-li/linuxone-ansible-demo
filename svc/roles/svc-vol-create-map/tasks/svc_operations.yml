@@ -78,7 +78,7 @@
 
 - name: store wwid to the list
   set_fact:
-    wwid_list: "{{ wwid_list | default([])}} + [' {{vol_wwid}} ' ]"
+    wwid_list: "{{ wwid_list | default([])}} + ['{{vol_wwid}}' ]"
 
 
 - name: scsi rescan on fcp ports
