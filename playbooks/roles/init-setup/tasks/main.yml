@@ -9,6 +9,19 @@
     group: root
     mode: 0644
 
+- name: install device-mapper-multipath
+  yum:
+    name: device-mapper-multipath
+    state: latest
+
+- name: enable multipathing
+  shell: /sbin/mpathconf --enable
+
+- name: Enable ans start multipathing using systemctl
+  ansible.builtin.systemd:
+    name: multipathd.service
+    state: started
+    enabled: yes
 
 - name: set ip address
   set_fact: 
@@ -35,6 +48,52 @@
     state=present
     createhome=yes
 
+- name: Get the zVM username
+  tags: vm-cfg
+  shell: cat /proc/sysinfo | grep 'VM00 Name:' | cut -d ':' -f2 | tr -d ' \t\n\r'
+  register: cmd_output
+
+- name: Set the target vm username
+  set_fact: 
+     vm_name: "{{ cmd_output.stdout }}"
+
+- name: Get the free FCP 
+  delegate_to: "{{zvmagent}}"
+  tags: zvm-cfg
+  shell: vmcp query fcp free | cut -d ',' -f1  | head -n1 | sed -e 's/.*FCP\(.*\)FREE.*/\1/' | tr -d ' \t\n\r'
+  register: cmd_output
+
+- name: Set the target fcp address
+  set_fact: 
+     vm_fcp_addr: "{{ cmd_output.stdout }}"
+
+- name: Get the free FCP
+  delegate_to: "{{zvmagent}}"
+  tags: zvm-cfg
+  shell: "vmcp att {{ vm_fcp_addr }} {{vm_name}}"
+  register: cmd_output
+
+- name: cio_ignore fcp address
+  shell: cio_ignore -r "{{vm_fcp_addr}}"
+
+- name: online the fcp 
+  shell: chccwdev -e "{{vm_fcp_addr}}"
+
+- name: rebuild initrd
+  shell: dracut -f -v
+
+- name: rebuild zipl
+  shell: zipl -V
+
+- name: Reboot host and wait for it to restart
+  reboot:
+    msg: "Reboot initiated by Ansible"
+    connect_timeout: 5
+    reboot_timeout: 600
+    pre_reboot_delay: 0
+    post_reboot_delay: 30
+    test_command: whoami
+    
 #- name: Set up authorized keys for the deployer user - ansible
 #  authorized_key: user={{ansible_client_id}} key="{{item}}"
 #  with_file:
