@@ -1,5 +1,5 @@
 ---
-clustername: "172.83.4.220"
+clustername: svcstorage
 domain: cloud.test123.com
 username: "superuser"
 password: "P@ssw0rd"
