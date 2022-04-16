@@ -25,7 +25,7 @@
 
 - name: get the volume wwid
   set_fact:
-     vol_wwid: "{{svcinfo_cmd_output.stdout}} | json "
+     vol_wwid: "{{svcinfo_cmd_output.stdout}} | to_json "
 
 - debug: var=vol_wwid
 #- name: Delete a host
