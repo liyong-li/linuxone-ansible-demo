@@ -1,6 +1,7 @@
 ---
 
 - name: Obtain an authentication token
+  delegate_to: 172.83.4.220
   register: result
   ibm.spectrum_virtualize.ibm_svc_auth:
     clustername: "{{clustername}}"
