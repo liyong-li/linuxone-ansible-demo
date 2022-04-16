@@ -1,0 +1,10 @@
+---
+- name: list security updates that available on the system
+  shell: yum updateinfo list updates security > /tmp/security.patch.set.txt
+  register: cmd_output
+
+- name: patch all the listed security updates
+  shell: yum update --security -y 
+
+- name: check if need to restart
+  shell: yum needs-restarting

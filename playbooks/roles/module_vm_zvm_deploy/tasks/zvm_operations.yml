@@ -87,12 +87,12 @@
 
 - name: copy PRM to zVM minidisk
   tags: linux-cfg
-  shell: cp "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel84/
+  shell: cp "{{ zvmguests_output_rhel84 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel84/ ; sync ; sync
   register: cmd_output
   when: item.profile == "RHEL84"
 - name: copy PRM to zVM minidisk
   tags: linux-cfg
-  shell: cp "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel79/
+  shell: cp "{{ zvmguests_output_rhel79 }}/{{item.zvm_uname|upper}}.PRM" /mnt/rhel79/ ; sync ; sync
   register: cmd_output
   when: item.profile == "RHEL79"
 - debug: var=cmd_output

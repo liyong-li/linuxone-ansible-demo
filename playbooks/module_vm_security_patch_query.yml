@@ -1,0 +1,14 @@
+---
+# Sample module-level playbook of the IBM Z HMC Collection
+- hosts:
+    - "{{target_group}}"
+  vars_files:
+    - vault.yml
+  gather_facts: no
+  become: yes
+  roles:
+  - module_vm_security_path_query
+
+
+    
+
