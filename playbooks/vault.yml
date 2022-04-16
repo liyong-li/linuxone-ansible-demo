@@ -2,6 +2,7 @@
 # vault.yml file for the sample playbooks of the IBM Z HMC Collection
 local_rhel_repo: http://172.83.4.227:8080/local_repo/
 http_rhel7_repo: http://172.83.4.227:8080/rhel79
+ansible_client_id: admin
 zvm_ftp: 172.83.4.209
 zvm_ftp_user: "LNXADMIN"
 zvm_ftp_pwd: "dfltpass" 
