@@ -1,0 +1,5 @@
+---
+- name: configure ansible 
+  hosts: localhost
+  roles:
+  - common_hosts

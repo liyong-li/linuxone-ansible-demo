@@ -1,0 +1,34 @@
+---
+
+#- name: Start remote copy
+#  ibm.spectrum_virtualize.ibm_svc_start_stop_replication:
+#    name: sample_rcopy
+#    clustername: "{{clustername}}"
+#    username: "{{username}}"
+#    password: "{{password}}"
+#    log_path: /tmp/ansible.log
+#    state: started
+#    clean: true
+- name: Stop remote copy
+  ibm.spectrum_virtualize.ibm_svc_start_stop_replication:
+    name: "{{pprc_group_name}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: testpprc01.log
+    isgroup: true
+    access: true
+    state: stopped
+
+- name: Run svcinfo CLI command using SSH client with password
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lsrcconsistgrp {{pprc_group_name}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/ansible.log
+  register: svcinfo_cmd_output
+  until: svcinfo_cmd_output.stdout.find("idling") != -1
+  retries: 3000
+  delay: 3
+

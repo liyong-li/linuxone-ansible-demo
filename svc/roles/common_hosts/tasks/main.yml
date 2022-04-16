@@ -1,0 +1,9 @@
+---
+
+#- name: make output dir
+#  file:
+#    path: "{{ bootfile_dest }}"
+#    state: directory
+
+
+- add_host: name={{ zvm_compute_node }} groups={{ zvm_compute_node }}

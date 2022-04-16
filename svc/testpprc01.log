@@ -1,0 +1,134 @@
+2022-03-29T13:01:27.489  INFO 4591072768 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:01:27.489  INFO 4591072768 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:01:27.812  INFO 4591072768 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:01:27.812  INFO 4591072768 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcrelationship/testpprc01
+2022-03-29T13:01:27.813  INFO 4591072768 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:01:27.994  INFO 4591072768 ibm_svc_utils.py:_svc_rest():179 _svc_rest: httperror HTTP Error 500: Internal Server Error
+2022-03-29T13:01:27.995  INFO 4591072768 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcrelationship/testpprc01', 'code': 500, 'err': ('HTTPError %s', 'HTTP Error 500: Internal Server Error'), 'out': b'"Command error occurred; error code 1: CMMVC5753E The specified object does not exist or is not a suitable candidate. "', 'data': {}}
+2022-03-29T13:21:12.611  INFO 4742452736 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:21:12.611  INFO 4742452736 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:21:12.869  INFO 4742452736 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:21:12.869  INFO 4742452736 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcrelationship/testpprc01
+2022-03-29T13:21:12.870  INFO 4742452736 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:21:13.087  INFO 4742452736 ibm_svc_utils.py:_svc_rest():179 _svc_rest: httperror HTTP Error 500: Internal Server Error
+2022-03-29T13:21:13.088  INFO 4742452736 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcrelationship/testpprc01', 'code': 500, 'err': ('HTTPError %s', 'HTTP Error 500: Internal Server Error'), 'out': b'"Command error occurred; error code 1: CMMVC5753E The specified object does not exist or is not a suitable candidate. "', 'data': {}}
+2022-03-29T13:23:23.185  INFO 4563609088 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:23:23.185  INFO 4563609088 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:23:23.423  INFO 4563609088 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:23:23.423  INFO 4563609088 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:23:23.423  INFO 4563609088 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:23:23.710  INFO 4563609088 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {}}
+2022-03-29T13:23:23.710  INFO 4563609088 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:23:23.710  INFO 4563609088 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:27:25.401  INFO 4596200960 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:27:25.402  INFO 4596200960 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:27:25.645  INFO 4596200960 ibm_svc_start_stop_replication.py:apply():262 self state is started
+2022-03-29T13:27:25.645  INFO 4596200960 ibm_svc_start_stop_replication.py:start():190 self.primary is aux
+2022-03-29T13:27:25.645  INFO 4596200960 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01
+2022-03-29T13:27:25.645  INFO 4596200960 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'primary': 'aux'}
+2022-03-29T13:27:25.861  INFO 4596200960 ibm_svc_utils.py:_svc_rest():179 _svc_rest: httperror HTTP Error 500: Internal Server Error
+2022-03-29T13:27:25.861  INFO 4596200960 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01', 'code': 500, 'err': ('HTTPError %s', 'HTTP Error 500: Internal Server Error'), 'out': b'"Command error occurred; error code 1: CMMVC5977E The operation was not performed because it is not valid given the current consistency group state. "', 'data': {'primary': 'aux'}}
+2022-03-29T13:28:22.466  INFO 4402189824 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:28:22.466  INFO 4402189824 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:28:22.691  INFO 4402189824 ibm_svc_start_stop_replication.py:apply():262 self state is started
+2022-03-29T13:28:22.691  INFO 4402189824 ibm_svc_start_stop_replication.py:start():190 self.primary is master
+2022-03-29T13:28:22.691  INFO 4402189824 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01
+2022-03-29T13:28:22.692  INFO 4402189824 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'primary': 'master'}
+2022-03-29T13:28:22.901  INFO 4402189824 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'primary': 'master'}}
+2022-03-29T13:28:22.902  INFO 4402189824 ibm_svc_start_stop_replication.py:start():203 succeeded to start the remote copy group testpprc01
+2022-03-29T13:28:48.078  INFO 4646286848 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:28:48.078  INFO 4646286848 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:28:48.349  INFO 4646286848 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:28:48.349  INFO 4646286848 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:28:48.350  INFO 4646286848 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:28:48.617  INFO 4646286848 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:28:48.617  INFO 4646286848 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:28:48.617  INFO 4646286848 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:29:16.889  INFO 4591842816 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:29:16.890  INFO 4591842816 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:29:17.078  INFO 4591842816 ibm_svc_start_stop_replication.py:apply():262 self state is started
+2022-03-29T13:29:17.078  INFO 4591842816 ibm_svc_start_stop_replication.py:start():190 self.primary is aux
+2022-03-29T13:29:17.079  INFO 4591842816 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01
+2022-03-29T13:29:17.079  INFO 4591842816 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'primary': 'aux'}
+2022-03-29T13:29:17.409  INFO 4591842816 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'primary': 'aux'}}
+2022-03-29T13:29:17.409  INFO 4591842816 ibm_svc_start_stop_replication.py:start():203 succeeded to start the remote copy group testpprc01
+2022-03-29T13:35:31.496  INFO 4619363840 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:35:31.497  INFO 4619363840 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:35:31.683  INFO 4619363840 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:35:31.684  INFO 4619363840 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:35:31.684  INFO 4619363840 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:35:31.927  INFO 4619363840 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:35:31.928  INFO 4619363840 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:35:31.928  INFO 4619363840 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:36:39.035  INFO 4587329024 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:36:39.035  INFO 4587329024 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:36:39.393  INFO 4587329024 ibm_svc_start_stop_replication.py:apply():262 self state is started
+2022-03-29T13:36:39.393  INFO 4587329024 ibm_svc_start_stop_replication.py:start():190 self.primary is aux
+2022-03-29T13:36:39.394  INFO 4587329024 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01
+2022-03-29T13:36:39.394  INFO 4587329024 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'primary': 'aux'}
+2022-03-29T13:36:39.743  INFO 4587329024 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'primary': 'aux'}}
+2022-03-29T13:36:39.743  INFO 4587329024 ibm_svc_start_stop_replication.py:start():203 succeeded to start the remote copy group testpprc01
+2022-03-29T13:44:43.366  INFO 4343215616 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:44:43.366  INFO 4343215616 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:44:43.713  INFO 4343215616 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:44:43.713  INFO 4343215616 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:44:43.713  INFO 4343215616 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:44:43.953  INFO 4343215616 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:44:43.954  INFO 4343215616 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:44:43.954  INFO 4343215616 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:46:38.963  INFO 4707358208 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:46:38.963  INFO 4707358208 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:46:39.178  INFO 4707358208 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:46:39.178  INFO 4707358208 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:46:39.178  INFO 4707358208 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:46:39.359  INFO 4707358208 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:46:39.359  INFO 4707358208 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:46:39.359  INFO 4707358208 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:48:34.371  INFO 4651963904 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:48:34.371  INFO 4651963904 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:48:34.572  INFO 4651963904 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:48:34.573  INFO 4651963904 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:48:34.573  INFO 4651963904 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:48:34.951  INFO 4651963904 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:48:34.952  INFO 4651963904 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:48:34.952  INFO 4651963904 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:51:35.732  INFO 4627953152 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:51:35.732  INFO 4627953152 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:51:35.939  INFO 4627953152 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:51:35.939  INFO 4627953152 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:51:35.940  INFO 4627953152 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:51:36.121  INFO 4627953152 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:51:36.121  INFO 4627953152 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:51:36.121  INFO 4627953152 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:51:58.129  INFO 4434077184 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:51:58.129  INFO 4434077184 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:51:58.422  INFO 4434077184 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:51:58.422  INFO 4434077184 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:51:58.422  INFO 4434077184 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:51:58.666  INFO 4434077184 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:51:58.667  INFO 4434077184 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:51:58.667  INFO 4434077184 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:55:01.778  INFO 4562810368 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:55:01.778  INFO 4562810368 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:55:01.984  INFO 4562810368 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:55:01.984  INFO 4562810368 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:55:01.985  INFO 4562810368 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:55:02.280  INFO 4562810368 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:55:02.281  INFO 4562810368 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:55:02.281  INFO 4562810368 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T13:55:19.847  INFO 4752197120 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T13:55:19.847  INFO 4752197120 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T13:55:20.291  INFO 4752197120 ibm_svc_start_stop_replication.py:apply():262 self state is stopped
+2022-03-29T13:55:20.292  INFO 4752197120 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01
+2022-03-29T13:55:20.292  INFO 4752197120 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'access': True}
+2022-03-29T13:55:20.501  INFO 4752197120 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/stoprcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'access': True}}
+2022-03-29T13:55:20.501  INFO 4752197120 ibm_svc_start_stop_replication.py:stop():237 stop the remote copy group testpprc01 with result 
+2022-03-29T13:55:20.501  INFO 4752197120 ibm_svc_start_stop_replication.py:stop():240 succeeded to stop the remote copy group testpprc01
+2022-03-29T14:08:21.828  INFO 4388017664 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/auth
+2022-03-29T14:08:21.829  INFO 4388017664 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload=None
+2022-03-29T14:08:22.071  INFO 4388017664 ibm_svc_start_stop_replication.py:apply():262 self state is started
+2022-03-29T14:08:22.071  INFO 4388017664 ibm_svc_start_stop_replication.py:start():190 self.primary is aux
+2022-03-29T14:08:22.071  INFO 4388017664 ibm_svc_utils.py:_svc_rest():168 _svc_rest: url=https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01
+2022-03-29T14:08:22.071  INFO 4388017664 ibm_svc_utils.py:_svc_rest():173 _svc_rest: payload={'primary': 'aux'}
+2022-03-29T14:08:22.422  INFO 4388017664 ibm_svc_utils.py:svc_run_command():258 svc_run_command rest={'url': 'https://172.83.4.220:7443/rest/startrcconsistgrp/testpprc01', 'code': None, 'err': None, 'out': '', 'data': {'primary': 'aux'}}
+2022-03-29T14:08:22.423  INFO 4388017664 ibm_svc_start_stop_replication.py:start():203 succeeded to start the remote copy group testpprc01
