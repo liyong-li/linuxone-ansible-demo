@@ -8,10 +8,10 @@
     log_path: /tmp/playbook.debug
     name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
     state: "present"
-    pool: "NLSAS_Tier2_pool"
+    pool: "{{pool_name}}"
     size: "{{item.vol_size}}"
     unit: "{{item.vol_unit}}"
-    iogrp: "io_grp0,io_grp1,io_grp2,io_grp3"
+    iogrp: "{{io_grps}}"
     #volumegroup: "test_volumegroup"
 
 #- name: Delete a host
