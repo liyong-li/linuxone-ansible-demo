@@ -45,18 +45,6 @@
   register: svcinfo_cmd_output
 
 
-
-- name: Delete a host
-  ibm.spectrum_virtualize.ibm_svc_host:
-    clustername: "{{clustername}}"
-    domain: "{{domain}}"
-    username: "{{username}}"
-    password: "{{password}}"
-    log_path: /tmp/playbook.debug
-    name: "{{vm_name}}"
-    state: absent
-
-
   #until: svcinfo_cmd_output.stdout.find("consistent_synchronized") != -1
   #retries: 3000
   #delay: 3

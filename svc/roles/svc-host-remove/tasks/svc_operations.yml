@@ -1,16 +1,5 @@
 ---
 
-- name: Obtain an authentication token
-  register: result
-  ibm.spectrum_virtualize.ibm_svc_auth:
-    clustername: "{{clustername}}"
-    domain: "{{domain}}"
-    username: "{{username}}"
-    password: "{{password}}"
-    log_path: /tmp/playbook.debug
-
-- debug: var=result
-
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
     command: "svcinfo lshost {{item}}"
@@ -23,13 +12,22 @@
   #retries: 3000
   #delay: 3
 
-- name: Delete a host
-  ibm.spectrum_virtualize.ibm_svc_host:
+#- name: Delete a host
+#  ibm.spectrum_virtualize.ibm_svc_host:
+#    clustername: "{{clustername}}"
+##    domain: "{{domain}}"
+#    username: "{{username}}"
+#    password: "{{password}}"
+#    log_path: /tmp/playbook.debug
+#    name: "{{item}}"
+#    state: absent
+
+- name: Run svcinfo CLI command using SSH client with password
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo rmhost {{item}}"
     clustername: "{{clustername}}"
-    domain: "{{domain}}"
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
-    name: "{{item}}"
-    state: absent
+  register: svcinfo_cmd_output
 
