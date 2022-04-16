@@ -25,17 +25,16 @@
 
 - name: get the volume wwid tmp
   set_fact:
-     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}} | to_json "
-     vol_wwid2: "{{vol_wwid_tmp[0]}} "
+     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}}"
 
 - name: get the volume wwid
   delegate_to: "{{item.hostname}}"
-  shell: echo {{svcinfo_cmd_output.stdout}} | grep vdisk_UID 
+  shell: echo {{vol_wwid_tmp}} | cut -d ',' -f1 | grep vdisk_UID 
   register: rescan_output
 
 - name: get the volume wwid
   set_fact:
-     vol_wwid: "{{vol_wwid_tmp}} "
+     vol_wwid: "{{rescan_output}} "
 
 - debug: var=vol_wwid
 #- name: Delete a host
