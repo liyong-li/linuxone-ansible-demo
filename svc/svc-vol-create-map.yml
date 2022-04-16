@@ -8,4 +8,4 @@
   vars_files:
     - svc_vars.yml
   roles:
-  - svc-vol-create
+  - svc-vol-create-map

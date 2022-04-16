@@ -9,4 +9,4 @@
     - svc_vars.yml
   roles:
   - common
-  - svc-host-create-map
+  - svc-host-create
