@@ -1,5 +1,15 @@
 ---
 
+- name: Obtain an authentication token
+  register: result
+  ibm.spectrum_virtualize.ibm_svc_auth:
+    clustername: "{{clustername}}"
+    domain: "{{domain}}"
+    username: "{{username}}"
+    password: "{{password}}"
+
+- debug: var=result
+
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
     command: "svcinfo lshost {{item}}"
