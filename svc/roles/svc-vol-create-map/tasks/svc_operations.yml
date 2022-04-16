@@ -16,7 +16,7 @@
 
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo lsvdisk RHEL8401osf4b823d6"
+    command: "svcinfo lsvdisk -delim : RHEL8401osf4b823d6"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
