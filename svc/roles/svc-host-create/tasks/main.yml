@@ -4,7 +4,10 @@
   tags: vm-cfg
   shell: vmcp q v fcp | grep WWPN | head -n1 | sed -e 's/.*WWPN\(.*\)/\1/' | tr -d ' \t\n\r'
   register: cmd_output
-
+- name: Set the target WWPN
+  set_fact: 
+     vm_fcp_wwpn: "{{ cmd_output.stdout }}"
+     
 - name: Get the zVM username
   delegate_to: "{{target_vm}}"
   tags: vm-cfg
@@ -15,9 +18,7 @@
   set_fact: 
      vm_name: "{{ cmd_output.stdout }}"
 
-- name: Set the target WWPN
-  set_fact: 
-     vm_fcp_wwpn: "{{ cmd_output.stdout }}"
+
 
 - name: Define a new FC host
   ibm.spectrum_virtualize.ibm_svc_host:
