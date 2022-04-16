@@ -12,6 +12,7 @@
                                             'vol_num': item.1.vol_num,
                                             'vol_size': item.1.vol_size,
                                             'vol_unit': item.1.vol_unit,
+                                            'vol_mdiskgrp': item.1.vol_mdiskgrp,
                                             'volname_prefix': item.1.volname_prefix
                                           }] }}"
     vol_nums: "{{ sg_vol_nums | default([]) + [ item.1.vol_num ] }}" 

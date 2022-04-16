@@ -11,11 +11,8 @@
     state: present
     mdiskgrp: "{{item.mdiskgrp}}"
     easytier: 'off'
-    size: "{{item.volsize}}"
-    unit: "{{item.volunit}}"
-
-
-
+    size: "{{item.vol_size}}"
+    unit: "{{item.vol_unit}}"
 
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:

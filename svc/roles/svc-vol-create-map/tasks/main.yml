@@ -1,6 +1,6 @@
 ---
     - debug:
-        var: svc_vols_template
+        var: all_vols
 
     #- name: make output dir
     #  file:
@@ -9,7 +9,7 @@
 #
     - name: "creating svc vol -- {{ item }}"
       include_tasks: svc_operations.yml
-      with_items: "{{ svc_vols_template }}"
+      with_items: "{{ all_vols }}"
 
 
     
