@@ -79,11 +79,11 @@
   #  vm_name: "{{vm_name|upper}}"
   shell: /opt/zthin/bin/smcli Image_Device_Dedicate -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
 
-- name: Update VM User Direct
-  delegate_to: "{{ zvmagent}}"
+#- name: Update VM User Direct
+#  delegate_to: "{{ zvmagent}}"
   #vars:
   #  vm_name: "{{vm_name|upper}}"
-  shell: /opt/zthin/bin/smcli Image_Device_Dedicate_DM -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
+#  shell: /opt/zthin/bin/smcli Image_Device_Dedicate_DM -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
 
 - name: enable fcp port
   shell: chzdev zfcp-host {{vm_fcp_addr}} -e -a -p
