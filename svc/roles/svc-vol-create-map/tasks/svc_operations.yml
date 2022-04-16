@@ -48,7 +48,7 @@
     log_path: /tmp/playbook.debug
     volname: vol_name
     host: "{{item.hostname}}"
-    scsi: 1
+    #scsi: 1
     state: present
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
