@@ -73,6 +73,18 @@
   shell: "vmcp att {{ vm_fcp_addr }} {{vm_name}}"
   register: cmd_output
 
+- name: attach fcp to VM
+  delegate_to: "{{ zvmagent}}"
+  #vars:
+  #  vm_name: "{{vm_name|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Device_Dedicate -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
+
+- name: Update VM User Direct
+  delegate_to: "{{ zvmagent}}"
+  #vars:
+  #  vm_name: "{{vm_name|upper}}"
+  shell: /opt/zthin/bin/smcli Image_Device_Dedicate_DM -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
+
 - name: cio_ignore fcp address
   shell: cio_ignore -r "{{vm_fcp_addr}}"
 
@@ -93,7 +105,7 @@
     pre_reboot_delay: 0
     post_reboot_delay: 30
     test_command: whoami
-    
+
 #- name: Set up authorized keys for the deployer user - ansible
 #  authorized_key: user={{ansible_client_id}} key="{{item}}"
 #  with_file:
