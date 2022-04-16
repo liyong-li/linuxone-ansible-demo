@@ -7,7 +7,7 @@
 - name: Set the target WWPN
   set_fact: 
      vm_fcp_wwpn: "{{ cmd_output.stdout }}"
-     
+
 - name: Get the zVM username
   delegate_to: "{{target_vm}}"
   tags: vm-cfg
@@ -33,7 +33,7 @@
     iogrp: 0:1:2:3
     protocol: scsi
     type: generic
-    site: site-name
+    #site: site-name
 
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
