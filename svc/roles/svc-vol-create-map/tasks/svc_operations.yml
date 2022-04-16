@@ -23,13 +23,18 @@
     log_path: /tmp/playbook.debug
   register: svcinfo_cmd_output
 
-- name: get the volume wwid
+- name: get the volume wwid tmp
   set_fact:
      vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}} | join | list "
 
 - name: get the volume wwid
+  delegate_to: "{{item.hostname}}"
+  shell: echo {{vol_wwid_tmp}} | grep vdisk_UID |
+  register: rescan_output
+
+- name: get the volume wwid
   set_fact:
-     vol_wwid: "{{vol_wwid_tmp[0]}} "
+     vol_wwid: "{{vol_wwid_tmp}} "
 
 - debug: var=vol_wwid
 #- name: Delete a host
