@@ -1,18 +1,18 @@
 ---
-
 - name: Create a volume
-  ibm.spectrum_virtualize.ibm_svc_vdisk:
-    clustername: "{{clustername}}"
+  ibm.spectrum_virtualize.ibm_svc_manage_volume:
+    clustername: "{{ clustername }}"
     domain: "{{domain}}"
-    username: "{{username}}"
-    password: "{{password}}"
+    username: "{{ username }}"
+    password: "{{ password }}"
     log_path: /tmp/playbook.debug
     name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
-    state: present
-    mdiskgrp: "{{item.mdiskgrp}}"
-    easytier: 'off'
+    state: "present"
+    pool: "pool_name"
     size: "{{item.vol_size}}"
     unit: "{{item.vol_unit}}"
+    iogrp: "{{item.mdiskgrp}}"
+    #volumegroup: "test_volumegroup"
 
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
