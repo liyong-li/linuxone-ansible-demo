@@ -1,0 +1,45 @@
+---
+
+- name: Create a volume
+  ibm.spectrum_virtualize.ibm_svc_vdisk:
+    clustername: "{{clustername}}"
+    domain: "{{domain}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+    name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
+    state: present
+    mdiskgrp: "{{item.mdiskgrp}}"
+    easytier: 'off'
+    size: "{{item.volsize}}"
+    unit: "{{item.volunit}}"
+
+
+
+
+#- name: Delete a host
+#  ibm.spectrum_virtualize.ibm_svc_host:
+#    clustername: "{{clustername}}"
+##    domain: "{{domain}}"
+#    username: "{{username}}"
+#    password: "{{password}}"
+#    log_path: /tmp/playbook.debug
+#    name: "{{item}}"
+#    state: absent
+- name: scsi-rescan
+  delegate_to: "{{item.hostname}}"
+  shell: scsi-rescan --luns lun1,lun2
+  register: rescan_output
+
+
+
+
+#- name: Run svcinfo CLI command using SSH client with password
+#  ibm.spectrum_virtualize.ibm_svctask_command:
+#    command: "svctask rmhost {{item}}"
+#    clustername: "{{clustername}}"
+#    username: "{{username}}"
+#    password: "{{password}}"
+#    log_path: /tmp/playbook.debug
+#  register: svctask_cmd_output
+

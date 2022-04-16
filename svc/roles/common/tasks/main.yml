@@ -1,0 +1,37 @@
+---
+- name: Setup and initialize variables
+  set_fact:
+    vols_list: "{{ [] }}"
+    vol_nums: "{{ [] }}"
+    all_vols: "{{ [] }}"
+
+- name: Create component list
+  set_fact:
+    vols_list: "{{ vols_list | default([]) + [{'hostname': item.0.hostname, 
+                                            'vol_type': item.1.vol_type,
+                                            'vol_num': item.1.vol_num,
+                                            'vol_size': item.1.vol_size,
+                                            'vol_unit': item.1.vol_unit,
+                                            'volname_prefix': item.1.volname_prefix
+                                          }] }}"
+    vol_nums: "{{ sg_vol_nums | default([]) + [ item.1.vol_num ] }}" 
+  with_subelements:
+    - "{{ vols }}"
+    - vol_list
+
+- name: Reset the index
+  set_fact:
+    index1: 0
+
+- include: loopint.yml
+  with_items:
+    - "{{ vols_list }}"
+#  loop: "{{ query('sequence', 'start=1 end='+(sg_vols[target].vol_num)|string) }}"
+#  with_items: 
+#    - "{{ sg_vols }}"
+#  loop_control:
+#    loop_var: "{{ item.vol_num }}"
+
+- name: Print the result
+  debug:
+    var: vols_list, vol_nums, all_vols
