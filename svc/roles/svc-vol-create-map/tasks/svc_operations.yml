@@ -16,13 +16,18 @@
 
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo lsvdisk RHEL8401osf4b823d6 | grep vdisk_UID"
+    command: "svcinfo lsvdisk RHEL8401osf4b823d6"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
   register: svcinfo_cmd_output
 
+- name: get the volume wwid
+  set_fact:
+     vol_wwid: "{{svcinfo_cmd_output.stdout}} | regex_search('.*vdisk_UID.*', ignorecase=True) "
+
+- debug: var=vol_wwid
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
 #    clustername: "{{clustername}}"
