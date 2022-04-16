@@ -7,9 +7,10 @@ icicfba4
 [DEMOZVM5]
 icicfba5
 
-[demo_rhel]
+[demo_rhel8]
 RHEL8401
 RHEL8402
+[demo_rhel79]
 RHEL7901
 
 [RHEL8401]
