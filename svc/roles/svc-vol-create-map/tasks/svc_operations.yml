@@ -1,18 +1,29 @@
 ---
-- name: Create a volume
-  ibm.spectrum_virtualize.ibm_svc_manage_volume:
-    clustername: "{{ clustername }}"
-    domain: "{{domain}}"
-    username: "{{ username }}"
-    password: "{{ password }}"
-    log_path: /tmp/playbook.debug
-    name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
-    state: "present"
-    pool: "{{item.pool_name}}"
-    size: "{{item.vol_size}}"
-    unit: "{{item.vol_unit}}"
-    iogrp: "{{item.io_grps}}"
+#- name: Create a volume
+#  ibm.spectrum_virtualize.ibm_svc_manage_volume:
+#    clustername: "{{ clustername }}"
+#    domain: "{{domain}}"
+#    username: "{{ username }}"
+##    password: "{{ password }}"
+#    log_path: /tmp/playbook.debug
+#    name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
+#    state: "present"
+#    pool: "{{item.pool_name}}"
+#    size: "{{item.vol_size}}"
+##    unit: "{{item.vol_unit}}"
+#    iogrp: "{{item.io_grps}}"
     #volumegroup: "test_volumegroup"
+
+
+
+- name: Run svcinfo CLI command using SSH client with password
+  ibm.spectrum_virtualize.ibm_svctask_command:
+    command: "svctask lsvdisk RHEL8401osf4b823d6 | grep vdisk_UID"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+  register: svctask_cmd_output
 
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
