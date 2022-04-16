@@ -86,10 +86,10 @@
   shell: /opt/zthin/bin/smcli Image_Device_Dedicate_DM -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
 
 - name: cio_ignore fcp address
-  shell: cio_ignore -r "{{vm_fcp_addr}}"
+  shell: cio_ignore -r {{vm_fcp_addr}}
 
 - name: online the fcp 
-  shell: chccwdev -e "{{vm_fcp_addr}}"
+  shell: chccwdev -e {{vm_fcp_addr}}
 
 - name: rebuild initrd
   shell: dracut -f -v
