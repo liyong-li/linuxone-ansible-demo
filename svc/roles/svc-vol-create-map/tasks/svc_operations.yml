@@ -46,7 +46,7 @@
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
-    volname: vol_name
+    volname: "{{vol_name}}"
     host: "{{item.hostname}}"
     #scsi: 1
     state: present
