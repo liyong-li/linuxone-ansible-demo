@@ -67,11 +67,11 @@
   set_fact: 
      vm_fcp_addr: "{{ cmd_output.stdout }}"
 
-- name: Get the free FCP
-  delegate_to: "{{zvmagent}}"
-  tags: zvm-cfg
-  shell: "vmcp att {{ vm_fcp_addr }} {{vm_name}}"
-  register: cmd_output
+#- name: Get the free FCP
+##  delegate_to: "{{zvmagent}}"
+#  tags: zvm-cfg
+#  shell: "vmcp att {{ vm_fcp_addr }} {{vm_name}}"
+#  register: cmd_output
 
 - name: attach fcp to VM
   delegate_to: "{{ zvmagent}}"
