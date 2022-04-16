@@ -6,7 +6,7 @@
 #    username: "{{ username }}"
 ##    password: "{{ password }}"
 #    log_path: /tmp/playbook.debug
-#    name: "{{item.hostname}}{{ item.volname_prefix }}{{ (100000 | random | to_uuid | lower)[:8] }}"
+#    name: "{{item.hostname}}_{{ item.volname_prefix }}_{{ (100000 | random | to_uuid | lower)[:8] }}"
 #    state: "present"
 #    pool: "{{item.pool_name}}"
 #    size: "{{item.vol_size}}"
@@ -14,16 +14,14 @@
 #    iogrp: "{{item.io_grps}}"
     #volumegroup: "test_volumegroup"
 
-
-
 - name: Run svcinfo CLI command using SSH client with password
-  ibm.spectrum_virtualize.ibm_svctask_command:
-    command: "svctask lsvdisk RHEL8401osf4b823d6 | grep vdisk_UID"
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lsvdisk RHEL8401osf4b823d6 | grep vdisk_UID"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
-  register: svctask_cmd_output
+  register: svcinfo_cmd_output
 
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
