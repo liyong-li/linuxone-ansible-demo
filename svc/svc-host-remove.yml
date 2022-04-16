@@ -1,6 +1,6 @@
 ---
 - name: pprc start
-  hosts: "{{target_host}}"
+  hosts: localhost
   collections:
     - ibm.spectrum_virtualize
   #become: yes
