@@ -25,7 +25,7 @@
 
 - name: get the volume wwid
   set_fact:
-     vol_wwid: "{{svcinfo_cmd_output.stdout}} | regex_search('.*vdisk_UID.*', ignorecase=True) "
+     vol_wwid: "{{svcinfo_cmd_output.stdout}} | json "
 
 - debug: var=vol_wwid
 #- name: Delete a host
