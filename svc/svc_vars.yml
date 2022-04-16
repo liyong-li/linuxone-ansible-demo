@@ -1,16 +1,4 @@
 ---
-ibp_namespace: ibpinfra
-ibp_userspace: ibp09
-entitlement_key: eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJJQk0gTWFya2V0cGxhY2UiLCJpYXQiOjE2MDMwNzg3NjAsImp0aSI6ImVjYjhmMzU1NDJiYjQ4NTFiMjM2YWI2ODFjOTM4NGI0In0.BE84jQo18EXjd77NGB0f6L_YZzz2AihxcmuX4MFmASc
-ibp_email: liyong.li@ibm.com
-
-tls_cert: test
-ibp_platform: s390x
-
-ibp_console_email: "{{ibp_userspace}}@test123.com"
-ibp_console_password: passw0rd
-ibp_console_domain: apps.cloud.test123.com
-
 clustername: "172.83.4.220"
 domain: cloud.test123.com
 username: "superuser"

@@ -1,11 +1,12 @@
 ---
 - name: Get the WWPN info  
-  delegate_to: "{{zvmagent}}"
-  tags: zvm-cfg
+  delegate_to: "{{target_vm}}"
+  tags: vm-cfg
   shell: vmcp q v fcp | grep WWPN | head -n1 | sed -e 's/.*WWPN\(.*\)/\1/' | tr -d ' \t\n\r'
   register: cmd_output
 
 - name: Get the zVM username
+  delegate_to: "{{target_vm}}"
   tags: vm-cfg
   shell: cat /proc/sysinfo | grep 'VM00 Name:' | cut -d ':' -f2 | tr -d ' \t\n\r'
   register: cmd_output
