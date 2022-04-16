@@ -23,11 +23,11 @@
 #    state: absent
 
 - name: Run svcinfo CLI command using SSH client with password
-  ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo rmhost {{item}}"
+  ibm.spectrum_virtualize.ibm_svctask_command:
+    command: "svctask rmhost {{item}}"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
-  register: svcinfo_cmd_output
+  register: svctask_cmd_output
 
