@@ -82,6 +82,7 @@
 
 
 - name: scsi rescan on fcp ports
+  delegate_to: "{{item.hostname}}"
   shell: echo "- - -" > /sys/class/scsi_host/{{item_host}}/scan
   with_items: "{{hosts_output.stdout_lines}}"
   loop_control: 
