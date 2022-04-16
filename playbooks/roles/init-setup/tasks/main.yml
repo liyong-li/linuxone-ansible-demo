@@ -85,6 +85,9 @@
   #  vm_name: "{{vm_name|upper}}"
   shell: /opt/zthin/bin/smcli Image_Device_Dedicate_DM -T {{ vm_name|quote }} -v {{ vm_fcp_addr }} -r {{ vm_fcp_addr }}
 
+- name: enable fcp port
+  shell: chzdev zfcp-host {{vm_fcp_addr}} -e -a -p
+
 - name: cio_ignore fcp address
   shell: cio_ignore -r {{vm_fcp_addr}}
 
