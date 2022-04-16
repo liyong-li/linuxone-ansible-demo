@@ -25,7 +25,7 @@
 
 - name: get the volume wwid tmp
   set_fact:
-     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}}"
+     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout[0].vdisk_UID}}"
 
 - name: get the volume wwid
   delegate_to: "{{item.hostname}}"
