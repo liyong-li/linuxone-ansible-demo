@@ -1,0 +1,11 @@
+---
+- name: pprc start
+  hosts: localhost
+  collections:
+    - ibm.spectrum_virtualize
+  #become: yes
+  #become_user: root
+  vars_files:
+    - svc_vars.yml
+  roles:
+  - svc-host-remove

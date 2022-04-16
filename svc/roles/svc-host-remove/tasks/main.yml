@@ -1,0 +1,15 @@
+---
+    - debug:
+        var: svc_hosts_template
+
+    #- name: make output dir
+    #  file:
+    #    path: "{{ zvmguests_output }}"
+    #    state: directory
+#
+    - name: "removing svc host -- {{ item }}"
+      include_tasks: svc_operations.yml
+      with_items: "{{ svc_hosts_template }}"
+
+
+    
