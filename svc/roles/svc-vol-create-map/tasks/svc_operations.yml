@@ -61,12 +61,14 @@
 #    state: absent
 - name: scsi-rescan
   delegate_to: "{{item.hostname}}"
-  shell: scsi-rescan --luns {{vol_wwid}}
+  shell: lszfcp | cut -d ' ' -f2
   register: rescan_output
+
+- debug: var=rescan_output
 
 - name: list volume in vm
   delegate_to: "{{item.hostname}}"
-  shell: multipath -ll {{vol_wwid}}
+  shell: multipath -ll | grep {{vol_wwid}}
   register: rescan_output
 #- name: Run svcinfo CLI command using SSH client with password
 #  ibm.spectrum_virtualize.ibm_svctask_command:
