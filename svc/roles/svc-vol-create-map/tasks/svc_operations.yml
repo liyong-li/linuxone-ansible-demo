@@ -20,7 +20,7 @@
 
 - name: store vol name to the list
   set_fact:
-    vol_name_list: "{{ vol_name_list | default([]) + ['vol_name'] }}"
+    vol_name_list: "{{ vol_name_list | default([]) + vol_name|quote|list }}"
 
 
 - name: Run svcinfo CLI command using SSH client with password
@@ -78,7 +78,7 @@
 
 - name: store wwid to the list
   set_fact:
-    wwid_list: "{{ wwid_list | default([]) + ['vol_wwid'] }}"
+    wwid_list: "{{ wwid_list | default([]) + vol_wwid|quote|list }}"
 
 
 - name: scsi rescan on fcp ports
