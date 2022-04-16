@@ -25,7 +25,8 @@
 
 - name: get the volume wwid tmp
   set_fact:
-     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}} | join | list "
+     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}} | to_json "
+     vol_wwid2: "{{vol_wwid_tmp[0]}} "
 
 - name: get the volume wwid
   delegate_to: "{{item.hostname}}"
