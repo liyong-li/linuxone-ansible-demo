@@ -11,7 +11,7 @@
     pool: "pool_name"
     size: "{{item.vol_size}}"
     unit: "{{item.vol_unit}}"
-    iogrp: "{{item.mdiskgrp}}"
+    iogrp: "{{item.vol_mdiskgrp}}"
     #volumegroup: "test_volumegroup"
 
 #- name: Delete a host
