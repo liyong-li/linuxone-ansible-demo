@@ -1,5 +1,7 @@
 ---
 - name: init setup
   hosts: "{{newlinux}}"
+  vars_files:
+    - vault.yml
   roles:
   - init-setup
