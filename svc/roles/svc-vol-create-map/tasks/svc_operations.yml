@@ -28,15 +28,28 @@
      vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}}"
 
 - name: get the volume wwid
-  delegate_to: "{{item.hostname}}"
-  shell: echo {{vol_wwid_tmp[0].vdisk_UID}} 
-  register: rescan_output
-
-- name: get the volume wwid
   set_fact:
      vol_wwid: "{{vol_wwid_tmp[0].vdisk_UID}}"
 
 - debug: var=vol_wwid
+
+- name: get the volume name
+  set_fact:
+     vol_name: "{{vol_wwid_tmp[0].name}}"
+
+- debug: var=vol_name
+
+- name: Map a volume to a host
+  ibm.spectrum_virtualize.ibm_svc_vol_map:
+    clustername: "{{clustername}}"
+    domain: "{{domain}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+    volname: vol_name
+    host: "{{item.hostname}}"
+    scsi: 1
+    state: present
 #- name: Delete a host
 #  ibm.spectrum_virtualize.ibm_svc_host:
 #    clustername: "{{clustername}}"
@@ -48,12 +61,13 @@
 #    state: absent
 - name: scsi-rescan
   delegate_to: "{{item.hostname}}"
-  shell: scsi-rescan --luns lun1,lun2
+  shell: scsi-rescan --luns {{vol_wwid}}
   register: rescan_output
 
-
-
-
+- name: list volume in vm
+  delegate_to: "{{item.hostname}}"
+  shell: multipath -ll {{vol_wwid}}
+  register: rescan_output
 #- name: Run svcinfo CLI command using SSH client with password
 #  ibm.spectrum_virtualize.ibm_svctask_command:
 #    command: "svctask rmhost {{item}}"
