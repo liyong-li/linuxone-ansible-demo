@@ -1,5 +1,5 @@
 ---
-- name: pprc start
+- name: create volume and map to host
   hosts: localhost
   collections:
     - ibm.spectrum_virtualize
