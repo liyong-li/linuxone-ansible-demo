@@ -25,7 +25,7 @@
 
 - name: get the volume wwid
   set_fact:
-     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout_lines[0]}} | to_json "
+     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}} | list "
 
 - name: get the volume wwid
   set_fact:
