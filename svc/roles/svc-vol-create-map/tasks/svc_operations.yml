@@ -29,7 +29,7 @@
 
 - name: get the volume wwid
   delegate_to: "{{item.hostname}}"
-  shell: echo {{vol_wwid_tmp}} | cut -d ',' -f1 | grep vdisk_UID 
+  shell: echo {{vol_wwid_tmp[0]}} | cut -d ',' -f1 | grep vdisk_UID 
   register: rescan_output
 
 - name: get the volume wwid
