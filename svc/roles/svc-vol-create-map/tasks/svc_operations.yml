@@ -18,11 +18,6 @@
     iogrp: "{{item.io_grps}}"
     #volumegroup: "test_volumegroup"
 
-- name: store vol name to the list
-  set_fact:
-    vol_name_list: "{{ vol_name_list | default([]) + vol_name|list }}"
-
-
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
     command: "svcinfo lsvdisk -delim : {{vol_name}}"
@@ -74,11 +69,16 @@
   shell: lszfcp | cut -d ' ' -f2
   register: hosts_output
 
-- debug: var=rescan_output
+- debug: var=hosts_output
+
+- name: store vol name to the list
+  set_fact:
+    vol_name_list: "{{ vol_name_list | default([])}} + [ '{{vol_name}}' ]"
+
 
 - name: store wwid to the list
   set_fact:
-    wwid_list: "{{ wwid_list | default([]) + vol_wwid|quote|list }}"
+    wwid_list: "{{ wwid_list | default([])}} + [' {{vol_wwid}} ' ]"
 
 
 - name: scsi rescan on fcp ports
