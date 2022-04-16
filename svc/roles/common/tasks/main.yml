@@ -8,6 +8,8 @@
 - name: Create component list
   set_fact:
     vols_list: "{{ vols_list | default([]) + [{'hostname': item.0.hostname, 
+                                            'pool_name': item.0.pool_name,
+                                            'io_grps': item.0.io_grps,
                                             'vol_type': item.1.vol_type,
                                             'vol_num': item.1.vol_num,
                                             'vol_size': item.1.vol_size,
