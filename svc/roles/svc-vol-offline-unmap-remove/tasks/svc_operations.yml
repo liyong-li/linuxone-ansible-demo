@@ -32,7 +32,7 @@
     password: "{{password}}"
     log_path: /tmp/playbook.debug
     volname: "{{item.volname}}"
-    host: "{{vol_owner}}"
+    host: "{{item.host}}"
     state: absent
 
 
