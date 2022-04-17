@@ -1,5 +1,5 @@
 ---
-- name: get the volume name tmp
+- name: get the volume name loopint
   set_fact:
      vol_str: "{{vol_sub_item.name}}" 
   when: item.wwid | upper  in vol_sub_item.vdisk_UID 

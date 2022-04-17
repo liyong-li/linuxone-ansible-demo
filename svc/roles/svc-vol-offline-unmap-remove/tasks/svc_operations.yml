@@ -15,6 +15,7 @@
   with_items: "{{svcinfo_cmd_output.stdout}}" 
   loop_control: 
     loop_var: vol_sub_item
+- debug: var=vol_str
 
 - name: get the volume name in shell
   shell: echo {{vol_name_tmp}} | grep -i {{item.wwid}} | awk '{print $5}' 
