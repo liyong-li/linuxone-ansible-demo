@@ -11,7 +11,7 @@
 - set_fact:
      vol_str: "" 
 - name: get the volume name tmp
-  include_task: loopint.yml
+  include_tasks: loopint.yml
   with_items: "{{svcinfo_cmd_output.stdout}}" 
   loop_control: 
     loop_var: vol_sub_item
