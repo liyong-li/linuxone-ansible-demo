@@ -1,7 +1,7 @@
 ---
 - name: Get the volume name in svc
   ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo lshostvdiskmap -delim : {{item.host}} | grep -i {{item.wwid}}"
+    command: "svcinfo lshostvdiskmap -delim : {{item.host}} "
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
@@ -13,7 +13,7 @@
      vol_name_tmp: "{{svcinfo_cmd_output.stdout}}" 
 
 - name: get the volume name in shell
-  shell: echo {{vol_name_tmp}} | awk '{print $5}' 
+  shell: echo {{vol_name_tmp}} | grep -i {{item.wwid}} | awk '{print $5}' 
   register: vol_name_output 
 
 - name: get the volume name
