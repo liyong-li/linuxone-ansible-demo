@@ -88,6 +88,9 @@
   loop_control: 
     loop_var: item_host
 
+- name: wait for 5 sec
+  shell: sleep 5
+
 - name: list volume in vm
   delegate_to: "{{item.hostname}}"
   shell: multipath -ll | grep -i {{vol_wwid}}
