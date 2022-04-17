@@ -8,5 +8,5 @@
   vars_files:
     - svc_vars.yml
   roles:
-  - common
+  #- common
   - svc-vol-offline-unmap-remove
