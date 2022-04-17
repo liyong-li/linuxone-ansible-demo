@@ -88,7 +88,7 @@
   loop_control: 
     loop_var: item_host
 
-- name: wait for 5 sec
+- name: sleep a while
   shell: sleep 5
 
 - name: list volume in vm
