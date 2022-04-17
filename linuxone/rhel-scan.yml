@@ -46,7 +46,7 @@
   
   - name: Send Email with audit files
     delegate_to: localhost
-    mail:
+    community.general.mail:
       host: smtp.gmail.com
       port: 587
       username: "{{ gmail_user }}"
