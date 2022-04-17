@@ -1,5 +1,28 @@
 ---
 
+lshostvdiskmap RHEL8401 | grep -i 600507640088804AD800000000000245
+
+- name: Get the volume name in svc
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lshostvdiskmap -delim : {{item.host}} | grep -i {{item.wwid}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+  register: svcinfo_cmd_output
+
+- name: get the volume name tmp
+  set_fact:
+     vol_name_tmp: "{{svcinfo_cmd_output.stdout}}" 
+
+- name: get the volume name in shell
+  shell: echo {{vol_name_tmp}} | awk '{print $5}' 
+  register: vol_name_output 
+
+- name: get the volume name
+  set_fact: 
+     vol_name: vol_name_output.stdout
+
 - name: scsi rescan on fcp ports
   delegate_to: "{{vol_owner}}"
   shell: multipath -ll | grep -i {{item.wwid}} | awk '{print $1}'
@@ -31,7 +54,7 @@
     username: "{{username}}"
     password: "{{password}}"
     log_path: /tmp/playbook.debug
-    volname: "{{item.volname}}"
+    volname: "{{vol_name}}"
     host: "{{item.host}}"
     state: absent
 
@@ -69,5 +92,5 @@
     username: "{{ username }}"
     password: "{{ password }}"
     log_path: /tmp/playbook.debug
-    name: "{{item.volname}}"
+    name: "{{vol_name}}"
     state: "absent"
