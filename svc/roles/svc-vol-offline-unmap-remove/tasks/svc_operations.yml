@@ -1,7 +1,4 @@
 ---
-
-lshostvdiskmap RHEL8401 | grep -i 600507640088804AD800000000000245
-
 - name: Get the volume name in svc
   ibm.spectrum_virtualize.ibm_svcinfo_command:
     command: "svcinfo lshostvdiskmap -delim : {{item.host}} | grep -i {{item.wwid}}"
