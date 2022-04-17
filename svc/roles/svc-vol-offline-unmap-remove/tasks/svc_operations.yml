@@ -2,7 +2,7 @@
 
 - name: scsi rescan on fcp ports
   delegate_to: "{{vol_owner}}"
-  shell: multipath -ll | grep -i "{{item.wwid}}" | awk '{print $1}
+  shell: multipath -ll | grep -i {{item.wwid}} | awk '{print $1}'
   register: vol1
 
 - name: find out the device id
