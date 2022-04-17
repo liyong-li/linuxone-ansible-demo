@@ -1,6 +1,8 @@
 ---
+- debug: var=item.wwid
+- debug: var=vol_sub_item.vdisk_UID 
 - name: get the volume name loopint
   set_fact:
-     vol_str: "{{vol_sub_item.name}}" 
+     vol_str: "{{vol_sub_item.vdisk_name}}" 
   when: item.wwid | upper  in vol_sub_item.vdisk_UID 
 
