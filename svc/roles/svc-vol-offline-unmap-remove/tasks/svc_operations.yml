@@ -8,9 +8,13 @@
     log_path: /tmp/playbook.debug
   register: svcinfo_cmd_output
 
+- set_fact:
+     vol_str: "" 
 - name: get the volume name tmp
-  set_fact:
-     vol_name_tmp: "{{svcinfo_cmd_output.stdout}}" 
+  include_task: loopint.yml
+  with_items: "{{svcinfo_cmd_output.stdout}}" 
+  loop_control: 
+    loop_var: vol_sub_item
 
 - name: get the volume name in shell
   shell: echo {{vol_name_tmp}} | grep -i {{item.wwid}} | awk '{print $5}' 
