@@ -2,5 +2,5 @@
 - name: get the volume name tmp
   set_fact:
      vol_str: "{{vol_sub_item.name}}" 
-  when: "{{item.wwid | upper}}"  in vol_sub_item.vdisk_UID 
+  when: item.wwid | upper  in vol_sub_item.vdisk_UID 
 
