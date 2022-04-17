@@ -7,7 +7,7 @@
 
 - name: find out the device id
   delegate_to: "{{vol_owner}}"
-  shell: multipath -ll /dev/mapper/{{vol1.stdout}} | grep -i 'sd' | grep -i ':' | sed -e 's/.*-\(.*\)sd.*/\1/'
+  shell: multipath -ll /dev/mapper/{{vol1.stdout}} | grep -i 'sd' | grep -i ':' | sed -e 's/.*-\(.*\)sd.*/\1/' | awk '{$1=$1};1'
   register: dev1
 
 - debug: var=dev1.stdout_lines
