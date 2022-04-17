@@ -1,3 +1,4 @@
 ---
 collections:
 - ibm.spectrum_virtualize
+- community.general
