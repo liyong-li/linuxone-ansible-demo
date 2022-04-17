@@ -1,0 +1,12 @@
+---
+- name: create volume and map to host
+  hosts: localhost
+  collections:
+    - ibm.spectrum_virtualize
+  #become: yes
+  #become_user: root
+  vars_files:
+    - svc_vars.yml
+  roles:
+  - common
+  - svc-vol-offline-unmap-remove

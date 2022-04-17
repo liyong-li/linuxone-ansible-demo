@@ -1,0 +1,23 @@
+---
+    - debug:
+        var: all_vols
+
+    - name: set hostname var
+      set_fact: 
+        vol_owner: "{{ all_vols.hostname }}"
+    #    wwid_list: "{{ [] }}"
+
+    #- name: make output dir
+    #  file:
+    #    path: "{{ zvmguests_output }}"
+    #    state: directory
+#
+    - name: "removing svc vol -- "
+      include_tasks: svc_operations.yml
+      with_items: "{{ all_vols.wwids }}"
+
+
+    #- debug: var=vol_name_list
+    #- debug: var=wwid_list
+
+    

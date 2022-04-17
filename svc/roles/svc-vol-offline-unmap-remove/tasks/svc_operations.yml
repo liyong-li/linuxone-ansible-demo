@@ -1,0 +1,73 @@
+---
+
+- name: scsi rescan on fcp ports
+  delegate_to: "{{vol_owner}}"
+  shell: multipath -ll | grep "{{item.wwid}}" | awk '{print $1}
+  register: vol1
+
+- name: find out the device id
+  delegate_to: "{{vol_owner}}"
+  shell: multipath -ll /dev/mapper/{{vol1.stdout}} | grep 'sd' | grep ':' | sed -e 's/.*-\(.*\)sd.*/\1/'
+  register: dev1
+
+- debug: var=dev1.stdout_lines
+
+- name: remove spaces
+  set_fact: 
+    dev2: "{{ dev1.stdout_lines|select() }}"
+
+- name: remove the vol from vm
+  delegate_to: "{{vol_owner}}"
+  shell: echo 1 > /sys/bus/scsi/devices/{{sub_item}}/delete
+  with_items: "{{dev2}}"
+  register: remove_output
+  loop_control: 
+    loop_var: sub_item
+
+- name: Unmap a volume from a host
+  ibm.spectrum_virtualize.ibm_svc_vol_map:
+    clustername: "{{clustername}}"
+    domain: "{{domain}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+    volname: "{{item.volname}}"
+    host: "{{vol_owner}}"
+    state: absent
+
+
+- name: Run svcinfo CLI command using SSH client with password
+  ibm.spectrum_virtualize.ibm_svcinfo_command:
+    command: "svcinfo lsvdisk -delim : {{vol_name}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: /tmp/playbook.debug
+  register: svcinfo_cmd_output
+
+- name: get the volume wwid tmp
+  set_fact:
+     vol_wwid_tmp: "{{svcinfo_cmd_output.stdout}}"
+
+- name: get the volume wwid
+  set_fact:
+     vol_wwid: "{{vol_wwid_tmp[0].vdisk_UID}}"
+
+- debug: var=vol_wwid
+
+
+- name: get the volume name
+  set_fact:
+     vol_name: "{{vol_wwid_tmp[0].name}}"
+
+- debug: var=vol_name
+
+- name: Delete a volume
+  ibm.spectrum_virtualize.ibm_svc_manage_volume:
+    clustername: "{{ clustername }}"
+    domain: "{{ domain }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    log_path: /tmp/playbook.debug
+    name: "{{item.volname}}"
+    state: "absent"
