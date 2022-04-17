@@ -1,6 +1,8 @@
 ---
 - name: Perform Baseline Scanning
   hosts: "{{ target_group }}"
+  vars_files:
+    - secret.yml
   become: yes
   gather_facts: yes
 

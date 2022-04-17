@@ -14,7 +14,7 @@ ftp_install_path: "/home/demoftp/iso/install"
 iso_server: 172.83.4.227
 ftp_ip: 172.83.4.227
 linux_ftp_path: "//mnt/rhel79_s390x"
-linux_ftp_path: "//home/vhht08"
+#linux_ftp_path: "//home/vhht08"
 ftp_username: "demoftp"
 ftp_password: "demoftp"
 linux_inst_repo_rhel79: ftp://demoftp:demoftp@172.83.4.227/iso/rhel79
