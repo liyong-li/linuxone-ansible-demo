@@ -17,9 +17,25 @@
     password: "{{password}}"
     log_path: testpprc01.log
     isgroup: true
-    access: true
+    access: false 
     state: started
+    force: true
     primary: "aux"
+  when: switch_mode == "DR2DC"
+
+- name: Start remote copy
+  ibm.spectrum_virtualize.ibm_svc_start_stop_replication:
+    name: "{{pprc_group_name}}"
+    clustername: "{{clustername}}"
+    username: "{{username}}"
+    password: "{{password}}"
+    log_path: testpprc01.log
+    isgroup: true
+    access: false 
+    state: started
+    force: true
+    primary: "master"
+  when: switch_mode == "DC2DR"
     #primary: "aux" "master"
 
 - name: Run svcinfo CLI command using SSH client with password
