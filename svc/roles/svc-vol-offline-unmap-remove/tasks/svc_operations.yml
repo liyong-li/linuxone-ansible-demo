@@ -38,7 +38,7 @@
 
 - name: Run svcinfo CLI command using SSH client with password
   ibm.spectrum_virtualize.ibm_svcinfo_command:
-    command: "svcinfo lsvdisk -delim : {{vol_name}}"
+    command: "svcinfo lsvdisk -delim : {{item.volname}}"
     clustername: "{{clustername}}"
     username: "{{username}}"
     password: "{{password}}"
