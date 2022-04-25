@@ -1,7 +1,7 @@
 ---
-- name: restart ntpd services
+- name: restart chrony services
   service:
-    name: ntpd
+    name: chrony
     state: restarted
 
 - name: reload NetworkManager

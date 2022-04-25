@@ -11,7 +11,7 @@
     backup: yes
   register: backup_ntp_conf
   notify:
-    - "restart ntpd services"
+    - "restart chrony services"
   when: "'ntp_remediation' in remediation_task"
 
 - set_stats:
