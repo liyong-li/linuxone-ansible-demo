@@ -8,7 +8,7 @@
     owner: root
     group: root
     mode: 0644
-    backup: yes
+    #backup: yes
   register: backup_ntp_conf
   notify:
     - "restart chrony services"
@@ -30,7 +30,7 @@
     owner: root
     group: root
     mode: 0644
-    backup: yes
+    #backup: yes
   register: backup_network_manager_conf
   notify:
     - reload NetworkManager
@@ -43,17 +43,17 @@
     owner: root
     group: root
     mode: 0644
-    backup: yes
+    #backup: yes
   register: backup_resolv_conf
   notify:
     - reload NetworkManager
   when: "'dns_remediation' in remediation_task"
 
-- set_stats:
-    data:
-      network_manager_conf_backup_file: "{{ backup_network_manager_conf.backup_file }}"
-      resolv_conf_backup_file: "{{ backup_resolv_conf.backup_file }}"
-  when: "'dns_remediation' in remediation_task"
+#- set_stats:
+#    data:
+#      network_manager_conf_backup_file: "{{ backup_network_manager_conf.backup_file }}"
+#      resolv_conf_backup_file: "{{ backup_resolv_conf.backup_file }}"
+#  when: "'dns_remediation' in remediation_task"
 
 - name: Ensure SELinux is installed
   yum:
